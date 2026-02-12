@@ -1,0 +1,67 @@
+---
+description: Portfolio project conventions and context for AI-assisted development
+globs: **/*
+---
+
+# Brian De Santiago — Portfolio Project
+
+## Project Overview
+Personal portfolio website for Brian De Santiago, a Product Designer with 2.5 years of experience in enterprise and B2B products (GenAI, dashboards, design systems).
+
+## Tech Stack
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **Content:** MDX for case studies
+- **Deployment:** Vercel
+- **Language:** TypeScript
+
+## Project Structure
+```
+/src
+  /app              — Next.js App Router pages
+    /case-studies    — Dynamic case study pages
+    /about           — About page
+  /components        — Reusable React components
+    /ui              — Base UI components (Button, Card, etc.)
+    /sections        — Page sections (Hero, CaseStudyCard, etc.)
+    /layout          — Layout components (Header, Footer, Nav)
+  /lib               — Utility functions and helpers
+  /content           — MDX case study files
+  /styles            — Global styles
+/public
+  /images            — Static images and mockups
+    /case-studies    — Case study assets organized by project
+/docs                — Project documentation and content drafts (NOT deployed)
+```
+
+## Design Principles
+1. **Clean and minimal** — Let the work speak for itself
+2. **Fast and performant** — Static generation, optimized images
+3. **Accessible** — Semantic HTML, keyboard navigation, ARIA labels
+4. **Responsive** — Mobile-first, works on all screen sizes
+5. **Smooth interactions** — Subtle animations that enhance, not distract
+6. **No emojis** — Never use emojis anywhere in the UI, copy, or code comments
+
+## Coding Conventions
+- Use TypeScript for all files
+- Use functional components with hooks
+- Use Tailwind utility classes for styling (avoid inline styles or CSS modules)
+- Use Framer Motion for animations (not CSS animations)
+- Keep components small and focused
+- Use semantic HTML elements (section, article, nav, main, etc.)
+- All images must have alt text
+- Use next/image for all images
+- Use next/link for all internal links
+
+## Content Context
+- Case studies are in `/docs/case-studies/` — reference these for content
+- Resume is in `/docs/resume.md`
+- Portfolio brief is in `/docs/brief.md`
+- Design references are in `/docs/design-references.md`
+
+## Copy & Tone
+- Professional but approachable. The portfolio should feel polished and confident without being cold or corporate.
+- Avoid overusing em dashes (—). Use periods or commas instead. One em dash per paragraph max. Too many feel AI-generated.
+- No emojis. Ever.
+- Write like a human, not a copywriter. Keep it direct and natural.

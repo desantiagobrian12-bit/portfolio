@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #171717;
+  --color-secondary: #6B7280;
+  --color-accent: #3B82F6;
+  --color-card: #F9FAFB;
+  --color-border: #E5E7EB;
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #171717;
+  background-image: radial-gradient(circle, #D1D5DB 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+::selection {
+  background-color: #3B82F6;
+  color: #ffffff;
+}
