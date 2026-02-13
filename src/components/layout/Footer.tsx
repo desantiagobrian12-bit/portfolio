@@ -35,7 +35,9 @@ export default function Footer() {
             LinkedIn
           </a>
           <a
-            href="#"
+            href="https://drive.google.com/file/d/1_7a23Fo8EQWsVPf1p1fRBNPVlRcjss6R/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm text-secondary transition-colors hover:text-primary"
           >
             Resume

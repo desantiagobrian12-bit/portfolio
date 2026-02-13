@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionShapes from "@/components/SectionShapes";
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 pb-10 pt-28 md:pb-14 md:pt-36">
-      <div className="mx-auto w-full max-w-5xl">
+    <section id="contact" className="relative overflow-hidden px-6 pb-10 pt-28 md:pb-14 md:pt-36">
+      <SectionShapes section="contact" />
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         {/* Top row — name + email */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

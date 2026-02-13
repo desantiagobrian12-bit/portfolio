@@ -12,31 +12,32 @@ export const metadata: Metadata = {
 };
 
 const basePath = "/images/case-studies/c3-genai";
+const imgV = "?v=3"; // bump when you replace image files so the page shows the new ones
 
 const features: CaseStudyFeature[] = [
   {
     title: "Reasoning",
     description:
       "Users need to trust AI answers when business decisions depend on them. I added a collapsible reasoning section so they could verify in context when they cared, and skip it when they didn't, without cluttering the main answer.",
-    image: `${basePath}/reasoning.png`,
+    image: `${basePath}/reasoning.png${imgV}`,
   },
   {
     title: "Call tools, skills, files and metadata",
     description:
       "The AI can invoke tools, use skills, and pull from files and metadata so answers are grounded in the organization's data. The UI makes it clear when the model is using these so power users can see what's in scope and non-technical users get confident, contextual answers.",
-    image: `${basePath}/call-tools-skills-files-metadata.png`,
+    image: `${basePath}/call-tools-skills-files-metadata.png${imgV}`,
   },
   {
     title: "Data tables and charts in answers",
     description:
       "When the answer includes structured data or trends, tables and charts render inline inside the conversation instead of on a separate screen. I kept it that way so the flow stays natural and users can scan numbers and visuals where they read the summary.",
-    image: `${basePath}/data-table-and-charts.png`,
+    image: `${basePath}/data-table-and-charts.png${imgV}`,
   },
   {
     title: "Filters: scoping files and metadata",
     description:
       "Before asking a question, users can scope what the AI uses: which files, which metadata (e.g. author, doc type, date). Filtering happens up front so the answer is based on the right context instead of the AI guessing or asking follow-ups.",
-    image: `${basePath}/Filters.png`,
+    image: `${basePath}/Filters.png${imgV}`,
   },
   {
     title: "AI quick actions: popover in context",
@@ -44,15 +45,15 @@ const features: CaseStudyFeature[] = [
       "Where the AI meets the canvas. The popover is how users invoke Gen AI without leaving the screen: summarize, use variables, make it formal, run analysis. Same pattern on dashboards, canvas views, and inside the rich-text editor so it always feels part of the flow, not a separate tool.",
     images: [
       {
-        src: `${basePath}/popover-dashboard.png`,
+        src: `${basePath}/popover-dashboard.png${imgV}`,
         alt: "Popover in dashboard, quick AI actions from dashboard context",
       },
       {
-        src: `${basePath}/popover-canvas.png?v=2`,
+        src: `${basePath}/popover-canvas.png${imgV}`,
         alt: "Popover in canvas, AI actions from a canvas view",
       },
       {
-        src: `${basePath}/popover-rte.png`,
+        src: `${basePath}/popover-rte.png${imgV}`,
         alt: "Popover in rich text editor, quick AI actions in the document",
       },
     ],
@@ -74,14 +75,14 @@ const caseStudyData: CaseStudyData = {
   subtitle:
     "Making complex, data-heavy AI experiences feel simple for everyone.",
   heroImageLabel: "C3 Generative AI, home and ask interface",
-  heroImage: `${basePath}/cover-home.png`,
+  heroImage: `${basePath}/cover-case-study.png${imgV}`,
   product:
     "C3 AI GenAI was an enterprise-grade generative AI product. Think ChatGPT, but grounded in an organization's internal documents, data, and business context. Users could query the system in natural language to analyze information, generate reports, draft content, create workflows, and support decision-making. It served a mix of technical and non-technical users, from business analysts to data scientists to executives.",
   coreProblem: {
     headline:
-      "Making a complex, data-heavy AI experience feel simple for everyone.",
+      "One interface. Analysts, executives, and data scientists. All of them need something different.",
     description:
-      "Enterprise AI isn't like consumer AI. When a business analyst asks a question, the answer might be a paragraph, a data table with 50 rows, a chart, or all three. When an executive asks, they want a summary they can trust. When a data scientist asks, they want to see the reasoning. The interface had to handle all of this: different response types, different user expectations, different levels of trust. Without feeling overwhelming. And some of these features already existed as engineer-built versions that were functional but not intuitive.",
+      "Enterprise AI isn't consumer AI. One user wants a summary they can trust; another wants the full table; another wants to see the reasoning. The challenge: one experience that serves everyone without feeling overwhelming.",
   },
   features,
   designDecisionsAsCards: true,

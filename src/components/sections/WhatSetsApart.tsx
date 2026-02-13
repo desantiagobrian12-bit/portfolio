@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Building2, Sparkles, Target, Zap, Code } from "lucide-react";
+import SectionShapes from "@/components/SectionShapes";
 import type { LucideIcon } from "lucide-react";
 
 const differentiators: {
@@ -58,69 +59,9 @@ const itemVariants = {
 export default function WhatSetsApart() {
   return (
     <section className="relative overflow-hidden bg-card px-6 py-28 md:py-36">
-      {/* Geometric background */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      >
-        <svg
-          className="absolute -right-8 -top-4 h-64 w-64 md:-right-4 md:h-80 md:w-80"
-          viewBox="0 0 320 320"
-          fill="none"
-        >
-          <circle cx="125" cy="165" r="95" stroke="#D1D5DB" strokeWidth="1" />
-          <circle cx="195" cy="165" r="95" stroke="#D1D5DB" strokeWidth="1" />
-          <circle cx="160" cy="100" r="95" stroke="#D1D5DB" strokeWidth="1" />
-        </svg>
-        <svg
-          className="absolute bottom-10 left-4 h-14 w-14 md:left-12"
-          viewBox="0 0 72 72"
-          fill="none"
-        >
-          <polygon
-            points="36,4 68,66 4,66"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-        </svg>
-        <svg
-          className="absolute bottom-[30%] right-0 hidden w-40 md:block"
-          viewBox="0 0 160 1"
-          fill="none"
-        >
-          <line
-            x1="0"
-            y1="0.5"
-            x2="160"
-            y2="0.5"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-        </svg>
-        <svg
-          className="absolute left-4 top-[45%] h-10 w-10 md:left-10 md:h-14 md:w-14"
-          viewBox="0 0 56 56"
-          fill="none"
-        >
-          <circle cx="28" cy="28" r="26" stroke="#D1D5DB" strokeWidth="1" />
-        </svg>
-        <svg
-          className="absolute bottom-[15%] right-[10%] hidden h-28 w-28 md:block"
-          viewBox="0 0 112 112"
-          fill="none"
-        >
-          <line
-            x1="0"
-            y1="112"
-            x2="112"
-            y2="0"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-        </svg>
-      </div>
+      <SectionShapes section="whatSetsApart" />
 
-      <div className="relative mx-auto w-full max-w-5xl">
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

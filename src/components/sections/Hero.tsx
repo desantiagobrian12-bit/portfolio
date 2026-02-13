@@ -27,7 +27,6 @@ export default function Hero() {
       className="relative flex h-screen flex-col overflow-hidden px-6"
     >
       <CanvasBackground />
-
       <div className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center">
         <motion.p
           initial={{ opacity: 0, y: 16 }}

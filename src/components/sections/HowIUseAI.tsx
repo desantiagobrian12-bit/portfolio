@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import SectionShapes from "@/components/SectionShapes";
 
 const tools = [
   {
@@ -50,8 +51,9 @@ const itemVariants = {
 
 export default function HowIUseAI() {
   return (
-    <section className="px-6 py-24 md:py-32">
-      <div className="mx-auto w-full max-w-5xl">
+    <section className="relative overflow-hidden px-6 py-24 md:py-32">
+      <SectionShapes section="howIUseAI" />
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

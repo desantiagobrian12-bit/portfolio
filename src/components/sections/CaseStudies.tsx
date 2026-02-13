@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import SectionShapes from "@/components/SectionShapes";
 
 type CaseStudy = {
   company: string;
@@ -85,76 +86,9 @@ export default function CaseStudies() {
       id="work"
       className="relative overflow-hidden px-6 py-28 md:py-36"
     >
-      {/* Geometric background */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      >
-        <svg
-          className="absolute -left-4 top-12 h-14 w-14 md:h-20 md:w-20"
-          viewBox="0 0 80 80"
-          fill="none"
-        >
-          <circle cx="40" cy="40" r="38" stroke="#D1D5DB" strokeWidth="1" />
-        </svg>
-        <svg
-          className="absolute -right-2 top-[30%] hidden h-28 w-28 md:block"
-          viewBox="0 0 112 112"
-          fill="none"
-        >
-          <rect
-            x="1"
-            y="1"
-            width="110"
-            height="110"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-          <line
-            x1="1"
-            y1="1"
-            x2="111"
-            y2="111"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-          <line
-            x1="111"
-            y1="1"
-            x2="1"
-            y2="111"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-        </svg>
-        <svg
-          className="absolute bottom-16 left-8 h-16 w-16 md:left-16 md:h-20 md:w-20"
-          viewBox="0 0 80 80"
-          fill="none"
-        >
-          <polygon
-            points="40,4 76,72 4,72"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-        </svg>
-        <svg
-          className="absolute bottom-8 right-[15%] h-8 w-8 md:h-10 md:w-10"
-          viewBox="0 0 40 40"
-          fill="none"
-        >
-          <rect
-            x="1"
-            y="1"
-            width="38"
-            height="38"
-            stroke="#D1D5DB"
-            strokeWidth="1"
-          />
-        </svg>
-      </div>
+      <SectionShapes section="caseStudies" />
 
-      <div className="relative mx-auto w-full max-w-5xl">
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

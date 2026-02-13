@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { CASE_STUDIES_NAV } from "@/lib/case-studies";
 import CanvasBackgroundDots from "@/components/CanvasBackgroundDots";
@@ -116,6 +117,8 @@ export interface CaseStudyData {
   };
   /** Optional CTA before next case study. Uses default if not set. */
   cta?: {
+    /** Optional italic tagline above the heading (e.g. "Design with intention,") */
+    tagline?: string;
     heading: string;
     body: string;
     buttonLabel: string;
@@ -460,6 +463,181 @@ function CaseStudyNav() {
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </Link>
+      </div>
+    </section>
+  );
+}
+
+// ─── CTA section: light bg, homepage-style shapes, slider (Droply-inspired) ───
+
+function CTASliderSection({
+  tagline,
+  heading,
+  body,
+  buttonLabel,
+}: {
+  tagline: string;
+  heading: string;
+  body: string;
+  buttonLabel: string;
+}) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const handleRef = useRef<HTMLDivElement>(null);
+
+  const handleDragEnd = () => {
+    const track = trackRef.current;
+    const handle = handleRef.current;
+    if (!track || !handle) return;
+    const trackRect = track.getBoundingClientRect();
+    const handleRect = handle.getBoundingClientRect();
+    const handleCenter = handleRect.left + handleRect.width / 2;
+    const threshold = trackRect.right - 44;
+    if (handleCenter >= threshold) {
+      window.open("https://www.linkedin.com/in/briandesantiago", "_blank", "noopener,noreferrer");
+    }
+  };
+
+  return (
+    <section className="relative overflow-hidden bg-[#F5F7FA] px-6 py-12 md:py-16">
+      {/* More shapes, no box: section bg only, content floats with the canvas */}
+      <div
+        className="pointer-events-none absolute inset-0 text-[#D1D5DB]"
+        aria-hidden="true"
+      >
+        {/* Big circle top-right */}
+        <svg
+          className="absolute -right-20 -top-10 h-[320px] w-[320px] md:h-[400px] md:w-[400px]"
+          viewBox="0 0 400 400"
+          fill="none"
+        >
+          <circle cx="200" cy="200" r="196" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Second large circle, lower right */}
+        <svg
+          className="absolute -bottom-16 right-1/4 h-[200px] w-[200px] md:h-[260px] md:w-[260px]"
+          viewBox="0 0 200 200"
+          fill="none"
+        >
+          <circle cx="100" cy="100" r="98" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Rect bottom-left */}
+        <svg
+          className="absolute bottom-1/4 left-6 h-20 w-20 md:left-14 md:h-24 md:w-24"
+          viewBox="0 0 80 80"
+          fill="none"
+        >
+          <rect x="1" y="1" width="78" height="78" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Diagonal line */}
+        <svg
+          className="absolute right-[20%] top-[15%] hidden h-40 w-40 md:block"
+          viewBox="0 0 176 176"
+          fill="none"
+        >
+          <line x1="0" y1="176" x2="176" y2="0" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Small circle mid-right */}
+        <svg
+          className="absolute right-12 top-1/2 h-16 w-16 md:h-20 md:w-20"
+          viewBox="0 0 96 96"
+          fill="none"
+        >
+          <circle cx="48" cy="48" r="46" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Horizontal line left */}
+        <svg
+          className="absolute left-0 top-[45%] hidden w-32 md:block"
+          viewBox="0 0 112 1"
+          fill="none"
+        >
+          <line x1="0" y1="0.5" x2="112" y2="0.5" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Triangle */}
+        <svg
+          className="absolute bottom-[30%] left-[10%] h-12 w-12 md:h-14 md:w-14"
+          viewBox="0 0 56 56"
+          fill="none"
+        >
+          <polygon points="28,4 52,50 4,50" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Extra circle near content (Droply-style accent) */}
+        <svg
+          className="absolute left-1/2 top-1/2 h-[180px] w-[180px] -translate-x-1/2 -translate-y-1/2 md:h-[220px] md:w-[220px]"
+          viewBox="0 0 220 220"
+          fill="none"
+        >
+          <circle cx="110" cy="110" r="108" stroke="currentColor" strokeWidth="1" />
+        </svg>
+        {/* Small rect top-left */}
+        <svg
+          className="absolute left-12 top-1/4 h-12 w-12 md:h-14 md:w-14"
+          viewBox="0 0 56 56"
+          fill="none"
+        >
+          <rect x="1" y="1" width="54" height="54" stroke="currentColor" strokeWidth="1" />
+        </svg>
+      </div>
+      <div className="relative mx-auto w-full max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative text-center"
+        >
+          <p
+            className="font-[var(--font-lora)] text-xl italic tracking-tight text-primary md:text-2xl"
+            style={{ fontFamily: "var(--font-lora), Georgia, serif" }}
+          >
+            {tagline}
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-primary md:text-3xl">
+            {heading}
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-secondary md:text-lg">
+            {body}
+          </p>
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <div
+              ref={trackRef}
+              className="relative flex h-12 w-64 cursor-grab items-center rounded-full bg-neutral-800 py-1.5 pl-1.5 pr-3 active:cursor-grabbing"
+            >
+              <span className="absolute left-4 right-4 top-1/2 -translate-y-1/2 text-center text-sm font-medium text-neutral-400">
+                {buttonLabel}
+              </span>
+              <motion.div
+                ref={handleRef}
+                drag="x"
+                dragConstraints={trackRef}
+                dragElastic={0}
+                dragMomentum={false}
+                onDragEnd={handleDragEnd}
+                className="relative z-10 flex h-9 w-9 shrink-0 cursor-grab items-center justify-center rounded-full bg-white text-primary active:cursor-grabbing"
+                whileTap={{ scale: 1.05 }}
+              >
+                <svg
+                  className="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </motion.div>
+            </div>
+            <p className="text-center">
+              <Link
+                href="/#contact"
+                className="text-sm text-secondary underline decoration-border underline-offset-2 transition-colors hover:text-primary"
+              >
+                Or go to contact
+              </Link>
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -1212,42 +1390,15 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
       )}
 
       {/* ========================= CTA (contact) ========================= */}
-      <section className="relative overflow-hidden bg-card px-6 py-20 md:py-28">
-        <div className="relative mx-auto w-full max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-border bg-white p-8 text-center shadow-sm md:p-12"
-          >
-            <h2 className="text-xl font-semibold text-primary md:text-2xl">
-              {data.cta?.heading ?? "Want to know more?"}
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-secondary">
-              {data.cta?.body ??
-                "If you'd like to dig deeper into this project or talk about working together, get in touch."}
-            </p>
-            <Link
-              href="/#contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
-            >
-              {data.cta?.buttonLabel ?? "Contact me"}
-              <svg
-                className="h-4 w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <CTASliderSection
+        tagline={data.cta?.tagline ?? "Design with intention,"}
+        heading={data.cta?.heading ?? "Let's talk."}
+        body={
+          data.cta?.body ??
+          "Walk through the details or make something together."
+        }
+        buttonLabel={data.cta?.buttonLabel ?? "Let's talk"}
+      />
 
       {/* ========================= CASE STUDY NAV (prev / next) ========================= */}
       <CaseStudyNav />

@@ -20,6 +20,7 @@ body {
   background-size: 24px 24px;
 }
 
+
 ::selection {
   background-color: #3B82F6;
   color: #ffffff;

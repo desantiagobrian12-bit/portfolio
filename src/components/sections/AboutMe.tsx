@@ -3,11 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import SectionShapes from "@/components/SectionShapes";
 
 export default function AboutMe() {
   return (
-    <section id="about" className="px-6 py-28 md:py-36">
-      <div className="mx-auto w-full max-w-5xl">
+    <section id="about" className="relative overflow-hidden px-6 py-28 md:py-36">
+      <SectionShapes section="aboutMe" />
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
         <div className="grid items-start gap-12 md:grid-cols-2 md:gap-16">
           {/* Photo — left column */}
           <motion.div
