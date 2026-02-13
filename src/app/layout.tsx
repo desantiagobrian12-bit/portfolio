@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Brian De Santiago — Product Designer",
   description:
     "I design clarity within complexity — translating intricate business and operational challenges into seamless user experiences.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
