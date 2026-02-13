@@ -4,16 +4,21 @@
  * Per-section background shapes — scattered across the page (left/right sides, top/bottom, between sections).
  * Kept out of the center column where content lives.
  */
+import React from "react";
 import { motion } from "framer-motion";
 
 const COLOR = "text-[#D1D5DB]";
 
 type Section = "caseStudies" | "whatSetsApart" | "howIUseAI" | "aboutMe" | "contact";
 
-const EFFECTS: Record<
-  Section,
-  (delay: number) => { initial: object; enter: object; loop: object }
-> = {
+// Framer Motion variants: keys (initial, enter, loop) with style/transition objects. Typed so TS accepts the variants prop.
+type ShapeVariants = {
+  initial: Record<string, unknown>;
+  enter: Record<string, unknown>;
+  loop: Record<string, unknown>;
+};
+
+const EFFECTS: Record<Section, (delay: number) => ShapeVariants> = {
   caseStudies: (delay) => ({
     initial: { opacity: 0, scale: 0.98 },
     enter: { opacity: 0.6, scale: 1, transition: { duration: 0.8, delay, ease: "easeOut" as const } },
@@ -186,7 +191,7 @@ export default function SectionShapes({ section }: Props) {
           className={item.className}
           initial="initial"
           animate={["enter", "loop"]}
-          variants={getVariants(item.delay)}
+          variants={getVariants(item.delay) as React.ComponentProps<typeof motion.div>["variants"]}
         >
           {item.svg}
         </motion.div>
