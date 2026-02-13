@@ -12,6 +12,14 @@
 
 ---
 
+## Cover
+
+Use this as the hero / first image for the case study:
+
+![Wizeline Learning Platform — Case study cover](/images/case-studies/wizeline/cover-wizeline.png)
+
+---
+
 ## The Product
 
 Wizeline Academy was the company's online learning platform. The initiative was to redesign the experience using Learning Experience Design (LXD) methodologies — improving how courses were structured, consumed, and completed.
@@ -25,6 +33,10 @@ Wizeline Academy was the company's online learning platform. The initiative was 
 The existing Wizeline Academy had fragmented and inconsistent course content, no structured learning paths tailored to different roles or skill levels, and low engagement and completion rates. It was a collection of courses, not a learning experience.
 
 The fundamental question wasn't "how do we make the UI prettier?" — it was "how do we design a platform that respects how people actually learn, and keeps them coming back?"
+
+![Empathize — user research and learner context](/images/case-studies/wizeline/empathize.png)
+
+![Define — problem framing and scope](/images/case-studies/wizeline/define.png)
 
 ---
 
@@ -91,6 +103,12 @@ We created detailed user personas representing different learner profiles — va
 
 Instead of "here are all the courses," the experience became "here's your path, here's where you are, here's what's next."
 
+![Ideate — learning paths and structure](/images/case-studies/wizeline/ideate-1.png)
+
+![Ideate — content and IA exploration](/images/case-studies/wizeline/ideate-2.png)
+
+![Ideate — module and flow concepts](/images/case-studies/wizeline/ideate-3.png)
+
 ### The trade-off
 Personalized IA is more complex to build and maintain. Adding a new course means thinking about where it fits in multiple paths, not just adding it to a list. But the alternative — a flat list that works equally badly for everyone — was what we already had.
 
@@ -99,6 +117,12 @@ Personalized IA is more complex to build and maintain. Adding a new course means
 ## The Core Impact
 
 **NPS score of 9/10** from usability testing with 15 users. Delivered a structured learning framework with microlearning modules, selective gamification, and persona-driven IA that replaced the fragmented course collection. Created a scalable content framework that Wizeline Academy can evolve with.
+
+![Prototype — learning platform UI](/images/case-studies/wizeline/prototype-1.png)
+
+![Prototype — module and progress UI](/images/case-studies/wizeline/prototype-2.png)
+
+![Prototype — full experience](/images/case-studies/wizeline/Prototype-3.png)
 
 ---
 
@@ -114,11 +138,13 @@ Personalized IA is more complex to build and maintain. Adding a new course means
 
 ## Assets
 
-| Asset | Status | Notes |
-|-------|--------|-------|
-| Hero image / cover | To create | Learning platform concept visual |
-| Learning path / course overview | To create | Structured journey with progress |
-| Microlearning module interface | To create | Bite-sized lesson screen |
-| Gamification elements | To create | Progress, achievements, streaks |
-| IA before vs. after | To create | Content structure transformation |
-| User personas | To create | Research artifact showing learner profiles |
+All assets live in `public/images/case-studies/wizeline/`. Reference in app/MDX with path `/images/case-studies/wizeline/<filename>`.
+
+| Asset | Filename | Path | Notes |
+|-------|----------|------|-------|
+| Hero / cover | `cover-wizeline.png` | `/images/case-studies/wizeline/cover-wizeline.png` | Case study cover |
+| Alternate cover | `cover.png` | `/images/case-studies/wizeline/cover.png` | Optional |
+| Empathize | `empathize.png` | `/images/case-studies/wizeline/empathize.png` | User research and learner context |
+| Define | `define.png` | `/images/case-studies/wizeline/define.png` | Problem framing and scope |
+| Ideate | `ideate-1.png`, `ideate-2.png`, `ideate-3.png` | `/images/case-studies/wizeline/ideate-1.png` etc. | Learning paths, IA, module concepts |
+| Prototype | `prototype-1.png`, `prototype-2.png`, `Prototype-3.png` | `/images/case-studies/wizeline/prototype-1.png` etc. | Platform UI and flows (note: `Prototype-3.png` has capital P) |

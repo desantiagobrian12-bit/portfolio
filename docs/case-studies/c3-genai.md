@@ -13,6 +13,14 @@
 
 ---
 
+## Cover
+
+Use this as the hero / first image for the case study:
+
+![C3 Generative AI — Home and ask interface](/images/case-studies/c3-genai/cover-home.png)
+
+---
+
 ## The Product
 
 C3 AI GenAI was an enterprise-grade generative AI product — think ChatGPT, but grounded in an organization's internal documents, data, and business context. Users could query the system in natural language to analyze information, generate reports, draft content, create workflows, and support decision-making.
@@ -31,68 +39,100 @@ The interface had to handle all of this — different response types, different 
 
 ---
 
-## Design Decision 1: Conversational UI with Embedded Rich Content
+## Key Features — Gen AI Experience
 
-### The question
-How should the AI display answers that range from simple text to complex data tables and charts?
+This section breaks down the main Gen AI capabilities and how they show up in the product. C3 didn’t follow a formal process like design thinking; the work was driven by design decisions on each feature. Below is how those features work and why they matter.
 
-### The options I considered
-- **Option A: Chat-bubble format with rich content inline** — keep the familiar conversational pattern (like ChatGPT) but embed tables, charts, and images directly within the thread
-- **Option B: Split-pane layout** — conversation on the left, data/results on the right (like some analytics tools)
-- **Option C: Card-based responses** — each AI response as a standalone card with its own layout
+### Reasoning
 
-### Why I chose Option A
-The conversational pattern was already the mental model users had from ChatGPT and Copilot. Fighting that familiarity would create unnecessary friction. The real challenge wasn't the layout — it was making rich data feel natural inside a chat thread.
+Users need to trust AI answers when business decisions depend on them. We exposed *how* the AI reached its conclusion in a way that didn’t clutter the main answer: a collapsible reasoning section so users could verify in context when they cared, and skip it when they didn’t.
 
-### The trade-off
-Chat-bubble UI works great for text. But when you embed a 50-row data grid inside a chat bubble, it can feel cramped or break the conversational rhythm. I had to design careful transitions between text responses and rich content — making tables and charts feel like a natural part of the conversation rather than a foreign element jammed into a chat window.
-
-### The impact
-Non-technical users could interact with the AI the way they'd interact with ChatGPT — no learning curve. But they'd get enterprise-grade responses with real data, not just text.
+![Reasoning — collapsible panel showing how the AI reached its conclusion](/images/case-studies/c3-genai/reasoning.png)
 
 ---
 
-## Design Decision 2: Collapsible Reasoning — Trust Without Clutter
+### Call tools, skills, files and metadata
 
-### The question
-How do you build trust in AI answers when business decisions depend on them?
+The AI can invoke tools, use skills, and pull from files and metadata so answers are grounded in the organization’s data. The UI makes it clear when the model is using these — e.g. which sources were reviewed, which skills ran — so power users can see what’s in scope and non-technical users get confident, contextual answers.
 
-### Why this problem mattered
-In consumer AI, if ChatGPT gives you a wrong answer about a recipe, nothing happens. In enterprise AI, if the system gives a wrong answer about revenue forecasts or supply chain data, real money is at stake. Users — especially executives and analysts — needed to trust the AI's answers. And the only way to build that trust is transparency: showing how the AI reached its conclusion.
-
-### The options I considered
-- **Option A: Always show reasoning** — display sources and logic alongside every answer
-- **Option B: Collapsible reasoning panel** — clean answer by default, expandable section for users who want to verify
-- **Option C: Separate "audit" view** — reasoning lives on a different page/tab
-
-### Why I chose Option B
-Option A created noise. Most of the time, users just want the answer. Forcing them to see reasoning every time would slow them down and clutter the interface. Option C was too disconnected — users needed to verify in context, not navigate away.
-
-The collapsible panel gave users the clean, fast experience by default, with the depth available one click away. It respected both the business analyst who just wants the number and the data scientist who wants to see every source.
-
-### The trade-off
-Hiding reasoning by default means some users might never check it — potentially over-trusting the AI. But our research showed that the users who cared about reasoning would always expand it, and forcing it on everyone else would just create clutter that people learned to ignore (which is worse for trust than hiding it).
+![Call tools, skills, files and metadata — contextual menu and source references](/images/case-studies/c3-genai/call-tools-skills-files-metadata.png)
 
 ---
 
-## Design Decision 3: Pre-Query Filters — Scoping Before Asking
+### Data tables and charts in answers
 
-### The question
-How should users tell the AI what context to use before they ask their question?
+When the answer includes structured data or trends, we render them inline: tables and charts live inside the conversation instead of on a separate screen. That keeps the flow natural and lets users scan numbers and visuals in the same place they read the summary.
 
-### Why this problem mattered
-Unlike consumer ChatGPT where you just type a question, enterprise users often need to scope their query — "show me revenue data, but only for Q3, only for the LATAM region, only from this dataset." Without proper scoping, the AI would either guess (unreliable) or ask clarifying questions (slow).
+![Data table and charts — AI response with embedded table and chart](/images/case-studies/c3-genai/data-table-and-charts.png)
 
-### The options I considered
-- **Option A: Let the AI figure it out from natural language** — users type everything in the prompt, the AI parses context
-- **Option B: Structured filters before the prompt** — users select dataset, time range, business unit, then ask their question
-- **Option C: Hybrid** — basic natural language with optional filter chips
+---
 
-### Why I chose Option B
-Option A sounds elegant but fails in practice. Enterprise data is structured — there are specific datasets, specific time ranges, specific business units. Relying on natural language parsing introduces ambiguity ("Q3" of which year? Which revenue dataset?). Structured filters eliminate ambiguity before the query even runs, leading to more accurate and relevant responses.
+### Filters — scoping files and metadata
 
-### The trade-off
-Structured filters add a step before asking. It's more friction than just typing. But in enterprise contexts, that friction prevents wrong answers — and wrong answers cost much more time than an extra click. Users preferred the confidence of knowing exactly what data the AI was pulling from.
+Before asking a question, users can scope *what* the AI uses: which files, which metadata (e.g. author, doc type, date). Filtering happens up front so the answer is based on the right context instead of the AI guessing or asking follow-ups.
+
+![Filters — how users scope files and metadata before asking](/images/case-studies/c3-genai/Filters.png)
+
+---
+
+### Popover in context (dashboard, canvas, RTE)
+
+Similar to Notion’s command palette, we use a contextual popover so users can run actions without leaving the screen. It appears in multiple surfaces: on dashboards for quick analysis, on canvas views for chart/data actions, and inside the rich-text editor for quick edits (summarize, formalize, use variables). One interaction pattern, consistent across contexts.
+
+**Popover in dashboard**
+
+![Popover in dashboard — quick actions from dashboard context](/images/case-studies/c3-genai/popover-dashboard.png)
+
+**Popover in canvas**
+
+![Popover in canvas — actions from a canvas view](/images/case-studies/c3-genai/popover-canvas.png)
+
+**Popover in rich text editor (canvas)**
+
+![Popover in rich text editor — quick actions in the document](/images/case-studies/c3-genai/popover-rte.png)
+
+---
+
+## Design Decisions (breakdown)
+
+C3 Gen AI didn’t follow a linear design-thinking process; the work was iterative and feature-driven. Below is a concise breakdown of the main design decisions: what we did, why, and the trade-offs.
+
+### 1. Conversational UI with embedded rich content
+
+**What we did**  
+Answers that range from short text to large tables and charts are shown inside the same conversational thread — no split pane or separate “results” page.
+
+**Why**  
+Users already expect a chat-like flow (ChatGPT, Copilot). Keeping that mental model and embedding rich content inline reduced learning curve and made enterprise data feel part of the conversation instead of a separate tool.
+
+**Trade-off**  
+Large tables or charts inside a bubble can feel tight or break the rhythm. We had to design clear transitions and sizing so rich content felt native to the thread rather than crammed in.
+
+---
+
+### 2. Collapsible reasoning — trust without clutter
+
+**What we did**  
+By default the answer is shown clean; a “Reasoned” (or similar) section is collapsible so users can expand to see sources and logic when they want to verify.
+
+**Why**  
+Most of the time users want the answer fast. Always showing reasoning added noise and slowed people down. A separate “audit” page felt disconnected. Collapsible reasoning kept the default view simple while giving data scientists and skeptical users one-click access to how the AI got there.
+
+**Trade-off**  
+If reasoning is hidden by default, some users may over-trust and never expand. We accepted that risk: research showed that users who care about verification do expand it, and forcing reasoning on everyone led to clutter that was ignored anyway (worse for trust).
+
+---
+
+### 3. Pre-query filters — scoping before asking
+
+**What we did**  
+Structured filters (dataset, time range, business unit, files, metadata) are available *before* the user sends the question, so the AI runs with a clear, unambiguous scope.
+
+**Why**  
+Enterprise questions are often scoped: “Q3”, “LATAM”, “this dataset”. Parsing that only from natural language is error-prone. Letting users set filters first removed ambiguity and produced more accurate, relevant answers.
+
+**Trade-off**  
+Filters add a step before asking, which is more friction than “just type”. In enterprise, wrong answers cost more than an extra click; users preferred knowing exactly what data was in scope.
 
 ---
 
@@ -100,13 +140,11 @@ Structured filters add a step before asking. It's more friction than just typing
 
 **Reduced average task steps by ~40% for non-technical users** — by redesigning engineer-led features into intuitive, scalable UX. Design patterns I contributed were adopted across 3+ products within the C3 AI Suite.
 
-<!-- Brian: add anything else you remember — client demos feedback, internal recognition, etc. -->
-
 ---
 
 ## What I Learned
 
-**Designing for AI means designing for uncertainty.** The model might give a perfect answer or a vague one, and the interface needs to handle both. Trust, transparency, and graceful degradation aren't nice-to-haves — they're the foundation.
+**Designing for AI means designing for uncertainty.** The model might give a perfect answer or a vague one, and the interface needs to handle both. Trust, transparency, and graceful degradation aren’t nice-to-haves — they’re the foundation.
 
 **Enterprise complexity is a feature, not a bug.** The constraints — stakeholder alignment, regulatory requirements, multiple user types, existing systems — are what make the design decisions interesting. Learning to move effectively within those constraints while still pushing for better UX was the biggest growth area for me.
 
@@ -116,12 +154,25 @@ Structured filters add a step before asking. It's more friction than just typing
 
 ## Assets
 
-| Asset | Status | Notes |
-|-------|--------|-------|
-| Hero image / cover | To create | Abstracted GenAI concept visual |
-| Conversational thread with rich data | To create | Chat UI with embedded table/chart |
-| Reasoning panel (collapsed vs expanded) | To create | Trust transparency pattern |
-| Pre-query filter interface | To create | Scoping UI before prompt |
-| Before vs. after (engineer-built → redesigned) | To create | Showing the transformation |
+All assets live in `public/images/case-studies/c3-genai/`. Reference in app/MDX with path `/images/case-studies/c3-genai/<filename>`.
 
-> **Note:** All visuals will be abstracted and anonymized recreations due to confidentiality.
+| Filename | Use in case study |
+|----------|--------------------|
+| `cover-home.png` | Hero / first image (already in folder) |
+| `reasoning.png` | Reasoning — collapsible panel |
+| `call-tools-skills-files-metadata.png` | Call tools, skills, files and metadata |
+| `data-table-and-charts.png` | When the answer has charts and tables |
+| `Filters.png` | How users filter files and metadata |
+| `popover-dashboard.png` | Popover in dashboard |
+| `popover-canvas.png` | Popover in canvas |
+| `popover-rte.png` | Popover in rich text editor |
+
+> **Note:** All visuals are abstracted and anonymized recreations due to confidentiality.
+
+---
+
+## Applying this to the portfolio
+
+- **Cover:** The case study page already uses `cover-home.png` as the hero; no change needed.
+- **Features section:** When you add a "Key features" block to the case study page (or MDX), use the image paths above. You may need to extend `CaseStudyLayout` / `CaseStudyData` to support a features list with images (reasoning, call tools, data tables/charts, filters, popovers).
+- **Design decisions:** The MD uses a short **What we did / Why / Trade-off** format instead of "options considered" + three cards. When you sync the portfolio page, you can either keep the existing three-decision structure and only change the copy to match this breakdown, or add a layout variant that renders this simpler format without the options list.

@@ -5,9 +5,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work", href: "/#work" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Header() {
@@ -40,13 +40,13 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-6 sm:gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm text-secondary transition-colors hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </nav>

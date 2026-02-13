@@ -12,6 +12,14 @@
 
 ---
 
+## Cover
+
+Use this as the hero / first image for the case study:
+
+![Konfront Healthcare Logistics — Case study cover](/images/case-studies/konfront/case-studie-cover.png)
+
+---
+
 ## The Product
 
 A digital platform for managing the delivery of high-cost hemophilia medications across Mexico. Desktop interface for distributors managing batches. Mobile webapp for operators delivering in the field. Over 1,100 patients depending on timely, cold-chain deliveries administered intravenously at home.
@@ -27,6 +35,8 @@ The client had recently entered the hemophilia market in Mexico, delivering cold
 This meant: no delivery traceability (once a package left the warehouse, visibility dropped to zero), inconsistent validation protocols, and fragmented data across teams. Delays weren't just operational headaches — they impacted patients who needed medication on time.
 
 We needed to digitize the entire logistics chain — from batch upload to patient handoff — while meeting healthcare regulatory requirements and being usable by operators in the field.
+
+![Foundational discovery map — workflow and ecosystem mapping](/images/case-studies/konfront/Foundational-discovery-map.png)
 
 ---
 
@@ -47,6 +57,10 @@ Distributors manage delivery batches at a desk — uploading CSVs, assigning ope
 A responsive approach (Option A) sounds efficient but fails when the use cases are fundamentally different. A distributor needs data tables, bulk actions, and real-time dashboards. An operator needs a step-by-step delivery flow, camera access for evidence capture, and large touch targets for outdoor use. Trying to make one UI serve both would compromise both.
 
 Two purpose-built products sharing one backend meant each experience could be optimized for its context without the other getting in the way.
+
+![Desktop and mobile — distributor dashboard and operator delivery flow](/images/case-studies/konfront/desktop.png)
+
+![Mobile prototype — operator delivery flow](/images/case-studies/konfront/Protoype-mobile.png)
 
 ### The trade-off
 Two products means more design and development work. More components, more flows, more edge cases. But the alternative — a compromised single product — would've created friction for both user types. In healthcare logistics, friction translates directly to delays, and delays impact patients.
@@ -69,6 +83,8 @@ The client's entire operation was on paper. They had never used a digital tool f
 We started with a quick proof of concept using a generative design tool to validate the core idea. Once stakeholders could visualize the product in context, we skipped wireframes entirely and moved to high-fidelity prototypes in Figma.
 
 This wasn't reckless — the discovery work (stakeholder interviews, workflow mapping, ecosystem analysis) gave us enough confidence in the flows. What we needed was buy-in and detailed feedback, and high-fidelity designs delivered that faster than wireframes ever could.
+
+![Define and ideate — from discovery to high-fidelity direction](/images/case-studies/konfront/define-ideate.png)
 
 ### The trade-off
 Skipping wireframes means higher cost of change if you're wrong about the direction. But our discovery map and stakeholder alignment sessions had already validated the flows. The risk of being fundamentally wrong was low. The risk of losing client momentum by showing abstract wireframes was much higher.
@@ -94,6 +110,10 @@ Every screen was designed with auditability in mind:
 
 I refined the status tracking flows after internal reviews — the initial version didn't handle failed deliveries clearly enough. Adding explicit paths for exceptions (wrong address, patient not home, cold-chain compromised) made the system more honest and more useful.
 
+![Design system — components and patterns for both products](/images/case-studies/konfront/Design-system.png)
+
+![Konfront branding](/images/case-studies/konfront/Branding.png)
+
 ### The trade-off
 More states and more validation steps means more friction in the delivery flow. Every additional screen an operator has to complete in the field adds time. But in healthcare logistics, skipping validation isn't an option. The design challenge was making each step as fast and frictionless as possible — large touch targets, smart defaults, minimal typing — without removing any essential checkpoint.
 
@@ -101,9 +121,13 @@ More states and more validation steps means more friction in the delivery flow. 
 
 ## The Core Impact
 
-Replaced a fully manual, paper-based medication delivery process with a centralized digital platform serving 1,100+ hemophilia patients across Mexico. Enabled full delivery traceability from batch upload to patient handoff — something that didn't exist before.
+Replaced a fully manual, paper-based medication delivery process with a centralized digital platform serving 1,100+ hemophilia patients across Mexico. Enabled full delivery traceability from batch upload to patient handoff. Something that didn't exist before.
 
-<!-- Brian: add any other metrics or qualitative results you can share -->
+---
+
+## Results (from HealthCareCompany.pdf)
+
+<!-- Paste real-world metrics and outcomes from HealthCareCompany.pdf here. Examples: delivery time reduction, traceability %, operator adoption, patient impact, regulatory compliance, etc. -->
 
 ---
 
@@ -119,11 +143,16 @@ Replaced a fully manual, paper-based medication delivery process with a centrali
 
 ## Assets
 
-| Asset | Status | Notes |
-|-------|--------|-------|
-| Hero image / cover | To create | Hemophilia delivery concept visual |
-| Desktop: batch management dashboard | To create | Distributor view — upload, assign, monitor |
-| Mobile: delivery flow | To create | Operator step-by-step in the field |
-| Status tracking lifecycle | To create | Full delivery states diagram |
-| Incident reporting (mobile) | To create | Evidence capture on failed delivery |
-| Before (paper process) vs. after (digital) | To create | The transformation story |
+All assets live in `public/images/case-studies/konfront/`. Reference in app/MDX with path `/images/case-studies/konfront/<filename>`.
+
+| Asset | Filename | Path | Notes |
+|-------|----------|------|-------|
+| Hero / cover | `case-studie-cover.png` | `/images/case-studies/konfront/case-studie-cover.png` | Case study cover visual |
+| Foundational discovery map | `Foundational-discovery-map.png` | `/images/case-studies/konfront/Foundational-discovery-map.png` | Discovery and workflow mapping |
+| Define & ideate | `define-ideate.png` | `/images/case-studies/konfront/define-ideate.png` | Define and ideate phase |
+| Design system | `Design-system.png` | `/images/case-studies/konfront/Design-system.png` | Design system |
+| Branding | `Branding.png` | `/images/case-studies/konfront/Branding.png` | Konfront branding |
+| Desktop prototype | `desktop.png` | `/images/case-studies/konfront/desktop.png` | Distributor dashboard |
+| Desktop prototype video | `Prototype-desktop-video.mp4` | `/images/case-studies/konfront/Prototype-desktop-video.mp4` | Video walkthrough of desktop product |
+| Mobile prototype | `Protoype-mobile.png` | `/images/case-studies/konfront/Protoype-mobile.png` | Operator delivery flow (filename has typo: Protoype) |
+| Additional | `cover.png`, `mobile.png`, `zz.avif` | — | Optional alternates |

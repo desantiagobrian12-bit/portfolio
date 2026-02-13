@@ -112,13 +112,13 @@ What should someone take away after visiting this portfolio?
 
 | Content | Status |
 |---------|--------|
-| Resume | Done |
-| Brief | Done |
-| C3 GenAI case study | Done |
-| Konfront Healthcare case study | Done |
-| Wizeline Learning Platform case study | Done |
-| About page copy | Done |
-| Design references / inspiration | Waiting on Brian's links |
-| Profile photo | To add later |
-| Mockups / visuals | To create later |
-| Email + LinkedIn URLs | To add (in about.md) |
+| Resume | Done — `docs/resume.md` |
+| Brief | Done — `docs/brief.md` |
+| C3 GenAI case study | Done — `docs/case-studies/c3-genai.md`, images in `public/images/case-studies/c3-genai/` |
+| Konfront Healthcare case study | Done — `docs/case-studies/konfront.md`, images in `public/images/case-studies/konfront/` |
+| Wizeline Learning Platform case study | Done — `docs/case-studies/wizeline-learning.md`, images in `public/images/case-studies/wizeline/` |
+| About page copy | Done — `docs/about.md` |
+| Design references / inspiration | Done — `docs/design-references.md`; local ref images in `docs/inspiration/` |
+| Profile photo | Done — `public/images/profile.png`, `profile-bw.png` |
+| Mockups / visuals | In place for all three case studies |
+| Email + LinkedIn URLs | In `docs/about.md` and `docs/resume.md` |

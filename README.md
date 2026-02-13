@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Brian De Santiago — Portfolio (Next.js).
+
+## Project structure
+
+| Path | Purpose |
+|------|--------|
+| **`docs/`** | Documentation and content (not deployed). Case study copy, about, brief, resume, design references. |
+| **`docs/case-studies/`** | Case study markdown: `c3-genai.md`, `konfront.md`, `wizeline-learning.md`. Image paths in these files use `/images/case-studies/<project>/...` (served from `public/`). |
+| **`docs/inspiration/`** | Local reference images (mood boards, portfolio refs). Not deployed. See `docs/design-references.md` for the list. |
+| **`public/images/`** | Deployed assets: `profile.png`, `profile-bw.png`, and `case-studies/<project>/` (all case study images). Reference in app as `/images/...`. |
 
 ## Getting Started
 

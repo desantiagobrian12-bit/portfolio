@@ -1,5 +1,25 @@
 # Design References & Inspiration
 
+## Where reference images are stored
+
+Local inspiration screenshots and mood boards live in **`docs/inspiration/`** (not deployed). Current files:
+
+| File | Use |
+|------|-----|
+| `about-ref-yuri.png` | About section reference (Yuri Kim) |
+| `billboard-shapes.png` | Billboard / hero shapes |
+| `case-study-cards-reference.png` | Case study card layout reference |
+| `contact-ref-minimal.png` | Contact section reference |
+| `footer-ref-dmitry.png` | Footer reference |
+| `hero-ref-dmitry.png` | Hero section reference |
+| `hero-ref-elise.png` | Hero section reference |
+| `nav-photo-ref.png` | Nav / photo reference |
+| `sections-shapes.png` | Section layout shapes |
+
+Portfolio and case study images that are deployed live in **`public/images/`** (see case study markdown files for paths).
+
+---
+
 ## Portfolios I Like
 
 ### 1. [Tashfeen Ahmed](https://tashfeen.me/)

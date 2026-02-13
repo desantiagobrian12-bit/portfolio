@@ -4,7 +4,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const caseStudies = [
+type CaseStudy = {
+  company: string;
+  title: string;
+  description: string;
+  tags: string[];
+  metric: string;
+  href: string;
+  image: string;
+  mobileImage: string | null;
+  bg: string;
+  dark: boolean;
+  imageContain?: boolean;
+  imageClean?: boolean;
+  imageWide?: boolean;
+};
+
+const caseStudies: CaseStudy[] = [
   {
     company: "C3 AI",
     title: "GenAI Enterprise Experience",
@@ -26,10 +42,13 @@ const caseStudies = [
     tags: ["Healthcare", "B2B", "Logistics"],
     metric: "1,100+ patients",
     href: "/case-studies/konfront-healthcare",
-    image: "/images/case-studies/konfront/desktop.png",
-    mobileImage: "/images/case-studies/konfront/mobile.png",
+    image: "/images/case-studies/konfront/case-studie-cover.png",
+    mobileImage: null,
     bg: "bg-[#CFDEF3]",
     dark: false,
+    imageContain: true,
+    imageClean: true,
+    imageWide: true,
   },
   {
     company: "Wizeline",
@@ -39,7 +58,7 @@ const caseStudies = [
     tags: ["LXD", "Accessibility", "IA"],
     metric: "NPS 9/10",
     href: "/case-studies/wizeline-learning",
-    image: "/images/case-studies/wizeline/cover.png",
+    image: "/images/case-studies/wizeline/cover-wizeline.png",
     mobileImage: null,
     bg: "bg-[#152A5E]",
     dark: true,
@@ -167,7 +186,7 @@ export default function CaseStudies() {
                 <div
                   className={`overflow-hidden rounded-2xl ${study.bg} shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
                 >
-                  <div className="grid md:grid-cols-2">
+                  <div className={`grid ${study.imageWide ? "md:grid-cols-[2fr_3fr]" : "md:grid-cols-2"}`}>
                     {/* Text content */}
                     <div className="flex flex-col justify-between p-8 md:p-10 lg:p-12">
                       <div>
@@ -230,7 +249,7 @@ export default function CaseStudies() {
                     </div>
 
                     {/* Image */}
-                    <div className={`relative flex items-end justify-center px-6 pb-0 pt-4 md:px-4 md:pt-8 ${study.mobileImage ? "overflow-visible" : "overflow-hidden"}`}>
+                    <div className={`relative flex items-end justify-center pb-0 pt-4 ${study.imageWide ? "px-3 md:px-4 md:pt-6" : "px-6 md:px-4 md:pt-8"} ${study.mobileImage ? "overflow-visible" : "overflow-hidden"}`}>
                       {study.mobileImage ? (
                         <div className="relative w-full">
                           {/* Desktop screenshot */}
@@ -259,13 +278,15 @@ export default function CaseStudies() {
                           </div>
                         </div>
                       ) : (
-                        <div className={`relative w-full overflow-hidden rounded-t-xl shadow-2xl ${study.bg}`}>
+                        <div
+                          className={`relative w-full overflow-hidden ${study.bg} ${study.imageClean ? "" : "rounded-t-xl shadow-2xl"}`}
+                        >
                           <Image
                             src={study.image}
                             alt={`${study.title} product screenshot`}
                             width={800}
                             height={520}
-                            className="block h-auto w-full object-cover object-top"
+                            className={`block h-auto w-full object-top ${study.imageContain ? "object-contain" : "object-cover"}`}
                             unoptimized={!study.dark}
                           />
                         </div>

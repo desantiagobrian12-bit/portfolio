@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { CASE_STUDIES_NAV } from "@/lib/case-studies";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -19,15 +22,43 @@ export interface DesignDecisionApproach {
 export interface DesignDecision {
   number: number;
   title: string;
-  question: string;
+  question?: string;
   whyItMattered: string;
   options?: DesignDecisionOption[];
   chosen?: string;
   whyChosen?: string;
   approach?: DesignDecisionApproach;
+  /** When true, show "What we did" / "Why" / "Trade-off" only (no options). Use with whatWeDid. */
+  simpleFormat?: boolean;
+  whatWeDid?: string;
   tradeoff: string;
   impact?: string;
   imageLabel: string;
+  /** Optional image path; when set, show real image instead of placeholder */
+  image?: string;
+}
+
+export interface CaseStudyFeatureSubStep {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+export interface CaseStudyFeature {
+  title: string;
+  description: string;
+  /** Optional paragraph rendered after the image(s)/video. Use for captions or follow-up context. */
+  descriptionAfterImage?: string;
+  /** Single image for this feature */
+  image?: string;
+  /** Multiple images (e.g. popover in dashboard, canvas, RTE). Optional caption per image. */
+  images?: { src: string; alt: string; caption?: string }[];
+  /** Optional video URL (e.g. prototype walkthrough). Rendered with controls. */
+  video?: string;
+  /** Optional sub-steps (e.g. Branding, Design system inside Define and ideate). Rendered with smaller headings. */
+  subSteps?: CaseStudyFeatureSubStep[];
+  /** Optional NPS (Net Promoter Score) display. Rendered as a metric badge. */
+  nps?: { score: number; max?: number; label?: string };
 }
 
 export interface CaseStudyData {
@@ -48,16 +79,50 @@ export interface CaseStudyData {
     headline: string;
     description: string;
   };
+  /** Optional hero image path (replaces placeholder when set) */
+  heroImage?: string;
+  /** Optional key features section with images */
+  features?: CaseStudyFeature[];
+  /** Optional override for Key Features section label (small uppercase, default: "Key Features") */
+  featuresSectionLabel?: string;
+  /** Optional override for Key Features section title (default: "Gen AI experience") */
+  featuresSectionTitle?: string;
+  /** Optional override for Key Features section description */
+  featuresSectionDescription?: string;
+  /** Optional override for Design decisions section title when using cards (default: "What I decided and why") */
+  designDecisionsSectionTitle?: string;
+  /** Optional results/impact section (metrics cards) shown before design decisions. */
+  resultsSection?: {
+    label?: string;
+    title: string;
+    subtitle?: string;
+    summary?: string;
+    metrics: { value: string; description: string }[];
+  };
   designDecisions: DesignDecision[];
+  /** When true, render design decisions as a grid of cards (no images). Use with simpleFormat decisions. */
+  designDecisionsAsCards?: boolean;
+  /** Extra cards to show after the main design decision cards (e.g. "Why having a popover in context"). */
+  extraDecisionCards?: { title: string; description: string }[];
   coreImpact: {
     headline: string;
     description: string;
   };
-  learnings: {
-    title: string;
-    description: string;
-  }[];
-  nextStudy: {
+  /** Optional video section (e.g. prototype walkthrough). Rendered after Key Features. */
+  videoSection?: {
+    label: string;
+    src: string;
+  };
+  /** Optional CTA before next case study. Uses default if not set. */
+  cta?: {
+    heading: string;
+    body: string;
+    buttonLabel: string;
+  };
+  /** @deprecated Not rendered. Kept for type compatibility. */
+  learnings?: { title: string; description: string }[];
+  /** @deprecated Use shared case study nav (prev/next) instead. */
+  nextStudy?: {
     company: string;
     title: string;
     href: string;
@@ -98,6 +163,119 @@ function ImagePlaceholder({
           <path d="m21 15-5-5L5 21" />
         </svg>
         <span className="text-xs text-secondary/50">{label}</span>
+      </div>
+    </div>
+  );
+}
+
+function NPSBadge({
+  score,
+  max = 10,
+  label = "NPS",
+}: {
+  score: number;
+  max?: number;
+  label?: string;
+}) {
+  const size = 200;
+  const strokeWidth = 20;
+  const r = (size - strokeWidth) / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+  const normalizedScore = Math.min(max, Math.max(0, score));
+  const halfCircleLength = Math.PI * r;
+  const detractorsLength = 0.6 * halfCircleLength;
+  const passivesLength = 0.2 * halfCircleLength;
+  const promotersLength = 0.2 * halfCircleLength;
+  const pivotY = cy + r;
+  const phi = Math.PI * (1 - normalizedScore / max);
+  const needleX = cx + r * Math.cos(phi);
+  const needleY = cy + r * Math.sin(phi);
+  const arcPath = `M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`;
+
+  return (
+    <div className="mt-10 flex justify-center">
+      <div className="flex flex-col items-center">
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          className="overflow-visible"
+          aria-label={`NPS score: ${score} out of ${max}`}
+        >
+          <defs>
+            <linearGradient id="nps-red" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#DC2626" />
+              <stop offset="100%" stopColor="#EA580C" />
+            </linearGradient>
+            <linearGradient id="nps-yellow" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#F59E0B" />
+              <stop offset="100%" stopColor="#EAB308" />
+            </linearGradient>
+            <linearGradient id="nps-green" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#22C55E" />
+              <stop offset="100%" stopColor="#16A34A" />
+            </linearGradient>
+            <filter id="nps-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.15" />
+            </filter>
+          </defs>
+          <path
+            d={arcPath}
+            fill="none"
+            stroke="url(#nps-red)"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={`${detractorsLength} ${halfCircleLength}`}
+            strokeDashoffset={0}
+          />
+          <path
+            d={arcPath}
+            fill="none"
+            stroke="url(#nps-yellow)"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={`${passivesLength} ${halfCircleLength}`}
+            strokeDashoffset={-detractorsLength}
+          />
+          <path
+            d={arcPath}
+            fill="none"
+            stroke="url(#nps-green)"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={`${promotersLength} ${halfCircleLength}`}
+            strokeDashoffset={-(detractorsLength + passivesLength)}
+          />
+          <circle
+            cx={cx}
+            cy={pivotY}
+            r={8}
+            fill="#171717"
+            filter="url(#nps-shadow)"
+          />
+          <line
+            x1={cx}
+            y1={pivotY}
+            x2={needleX}
+            y2={needleY}
+            stroke="#171717"
+            strokeWidth={3}
+            strokeLinecap="round"
+            filter="url(#nps-shadow)"
+          />
+        </svg>
+        <div className="mt-4 flex items-baseline gap-2">
+          <span className="text-3xl font-bold tabular-nums tracking-tight text-primary md:text-4xl">
+            {score}
+          </span>
+          <span className="text-sm text-secondary">
+            /{max} · {label}
+          </span>
+        </div>
+        <p className="mt-2 max-w-[220px] text-center text-xs font-medium text-secondary">
+          Net Promoter Score from user testing
+        </p>
       </div>
     </div>
   );
@@ -195,20 +373,6 @@ function ImpactGeometry() {
   );
 }
 
-function LearningsGeometry() {
-  return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      <svg
-        className="absolute -left-6 bottom-16 h-14 w-14 text-border/40"
-        viewBox="0 0 56 56"
-        fill="none"
-      >
-        <rect x="1" y="1" width="54" height="54" stroke="currentColor" strokeWidth="1" />
-      </svg>
-    </div>
-  );
-}
-
 // ─── Options grid for a design decision ──────────────────────────────────────
 
 function OptionsGrid({
@@ -260,6 +424,64 @@ function OptionsGrid({
         );
       })}
     </div>
+  );
+}
+
+// ─── Case study prev/next nav ───────────────────────────────────────────────
+
+function CaseStudyNav() {
+  const pathname = usePathname();
+  const index = CASE_STUDIES_NAV.findIndex((s) => s.href === pathname);
+  if (index === -1) return null;
+  const prev = CASE_STUDIES_NAV[(index - 1 + CASE_STUDIES_NAV.length) % CASE_STUDIES_NAV.length];
+  const next = CASE_STUDIES_NAV[(index + 1) % CASE_STUDIES_NAV.length];
+  return (
+    <section className="border-t border-border bg-white px-6 py-10 md:py-12">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-6">
+        <Link
+          href={prev.href}
+          className="group inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-accent"
+        >
+          <svg
+            className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span>
+            {prev.company}
+            <span className="text-secondary"> · </span>
+            {prev.title}
+          </span>
+        </Link>
+        <Link
+          href={next.href}
+          className="group inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-accent"
+        >
+          <span>
+            {next.company}
+            <span className="text-secondary"> · </span>
+            {next.title}
+          </span>
+          <svg
+            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -368,14 +590,27 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
             </motion.p>
           )}
 
-          {/* Hero image placeholder */}
+          {/* Hero image */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-10"
           >
-            <ImagePlaceholder label={data.heroImageLabel} tall />
+            {data.heroImage ? (
+              <div className="overflow-hidden rounded-xl border border-border bg-card">
+                <Image
+                  src={data.heroImage}
+                  alt={data.heroImageLabel}
+                  width={1200}
+                  height={680}
+                  className="h-auto w-full object-cover object-top"
+                  priority
+                />
+              </div>
+            ) : (
+              <ImagePlaceholder label={data.heroImageLabel} tall />
+            )}
           </motion.div>
         </div>
       </section>
@@ -422,15 +657,376 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
         </div>
       </section>
 
-      {/* ========================= DESIGN DECISIONS ========================= */}
-      {data.designDecisions.map((dd, i) => (
-        <section
-          key={dd.number}
-          className={`relative overflow-hidden px-6 py-20 md:py-28 ${
-            i % 2 === 0 ? "bg-card" : "bg-white"
-          }`}
-        >
-          <DecisionGeometry index={i} />
+      {/* ========================= CORE IMPACT ========================= */}
+      <section className="relative overflow-hidden bg-card px-6 py-20 md:py-28">
+        <ImpactGeometry />
+        <div className="relative mx-auto w-full max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportOnce}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+              The Core Impact
+            </p>
+            <div className="mt-6 border-l-4 border-accent pl-6">
+              <h2 className="text-2xl font-semibold leading-snug text-primary md:text-3xl">
+                {data.coreImpact.headline}
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-secondary md:text-lg">
+                {data.coreImpact.description}
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ========================= KEY FEATURES / DESIGN PROCESS (optional) ========================= */}
+      {data.features && data.features.length > 0 && (
+        <section className="bg-card px-6 py-20 md:py-28">
+          <div className="mx-auto w-full max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5 }}
+            >
+              {data.featuresSectionLabel && (
+                <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                  {data.featuresSectionLabel}
+                </p>
+              )}
+              <h2 className={`text-2xl font-semibold leading-snug text-primary md:text-3xl ${data.featuresSectionLabel ? "mt-4" : "mt-0"}`}>
+                {data.featuresSectionTitle ?? "Gen AI experience"}
+              </h2>
+              {(data.featuresSectionDescription ?? "Main Gen AI capabilities and how they show up in the product.") && (
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-secondary md:text-lg">
+                  {data.featuresSectionDescription ?? "Main Gen AI capabilities and how they show up in the product."}
+                </p>
+              )}
+            </motion.div>
+
+            <div className="mt-12 space-y-16">
+              {data.features.map((feature, idx) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportOnce}
+                  transition={{ duration: 0.5, delay: idx * 0.05 }}
+                >
+                  <h3 className="text-lg font-semibold text-primary md:text-xl">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-3 max-w-3xl whitespace-pre-line text-base leading-relaxed text-secondary">
+                    {feature.description}
+                  </p>
+                  {feature.nps && (
+                    <NPSBadge
+                      score={feature.nps.score}
+                      max={feature.nps.max ?? 10}
+                      label={feature.nps.label ?? "NPS"}
+                    />
+                  )}
+                  {feature.video && (
+                    <div className="mt-6 overflow-hidden rounded-xl border border-border bg-card">
+                      <video
+                        src={feature.video}
+                        controls
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="h-auto w-full"
+                        preload="metadata"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  )}
+                  {feature.image && (
+                    <div className="mt-6 overflow-hidden rounded-xl border border-border bg-white">
+                      <Image
+                        src={feature.image}
+                        alt={feature.title}
+                        width={1200}
+                        height={680}
+                        className="h-auto w-full object-contain"
+                      />
+                    </div>
+                  )}
+                  {feature.images && feature.images.length > 0 && (
+                    <div className="mt-6 space-y-6">
+                      {feature.images.map((img) => (
+                        <div key={img.src}>
+                          <div className="overflow-hidden rounded-xl border border-border bg-white">
+                            <Image
+                              src={img.src}
+                              alt={img.alt}
+                              width={1200}
+                              height={680}
+                              className="h-auto w-full object-contain"
+                            />
+                          </div>
+                          {"caption" in img && img.caption && (
+                            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-secondary">
+                              {img.caption}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {feature.descriptionAfterImage && (
+                    <p className="mt-6 max-w-3xl text-base leading-relaxed text-secondary">
+                      {feature.descriptionAfterImage}
+                    </p>
+                  )}
+                  {feature.subSteps && feature.subSteps.length > 0 && (
+                    <div className="mt-10 space-y-10 border-t border-border pt-10">
+                      {feature.subSteps.map((sub) => (
+                        <div key={sub.title}>
+                          <h4 className="text-base font-semibold text-primary md:text-lg">
+                            {sub.title}
+                          </h4>
+                          <p className="mt-2 max-w-3xl text-base leading-relaxed text-secondary">
+                            {sub.description}
+                          </p>
+                          {sub.image && (
+                            <div className="mt-4 overflow-hidden rounded-xl border border-border bg-white">
+                              <Image
+                                src={sub.image}
+                                alt={sub.title}
+                                width={1200}
+                                height={680}
+                                className="h-auto w-full object-contain"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ========================= VIDEO (optional) ========================= */}
+      {data.videoSection && (
+        <section className="bg-white px-6 py-20 md:py-28">
+          <div className="mx-auto w-full max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                Prototype walkthrough
+              </p>
+              <h2 className="mt-4 text-2xl font-semibold leading-snug text-primary md:text-3xl">
+                {data.videoSection.label}
+              </h2>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mt-8 overflow-hidden rounded-xl border border-border bg-card"
+            >
+              <video
+                src={data.videoSection.src}
+                controls
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-auto w-full"
+                preload="metadata"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ========================= RESULTS / IMPACT (optional) ========================= */}
+      {data.resultsSection && data.resultsSection.metrics.length > 0 && (
+        <section className="relative overflow-hidden bg-card px-6 py-20 md:py-28">
+          <div className="relative mx-auto w-full max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5 }}
+            >
+              {data.resultsSection.label && (
+                <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                  {data.resultsSection.label}
+                </p>
+              )}
+              <h2 className="mt-4 text-2xl font-semibold leading-snug text-primary md:text-3xl">
+                {data.resultsSection.title}
+              </h2>
+              {data.resultsSection.subtitle && (
+                <p className="mt-2 text-base leading-relaxed text-secondary md:text-lg">
+                  {data.resultsSection.subtitle}
+                </p>
+              )}
+              {data.resultsSection.summary && (
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-secondary md:text-lg">
+                  {data.resultsSection.summary}
+                </p>
+              )}
+            </motion.div>
+            <motion.div
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.08 } },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {data.resultsSection.metrics.map((metric, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col rounded-xl border border-border bg-white p-6 shadow-sm"
+                >
+                  <span className="text-2xl font-semibold text-primary md:text-3xl">
+                    {metric.value}
+                  </span>
+                  <p className="mt-2 text-sm leading-relaxed text-secondary">
+                    {metric.description}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ========================= DESIGN DECISIONS (cards variant) ========================= */}
+      {data.designDecisionsAsCards ? (
+        <section className="relative overflow-hidden bg-card px-6 py-20 md:py-28">
+          <div className="relative mx-auto w-full max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                Design decisions
+              </p>
+              <h2 className="mt-4 text-2xl font-semibold leading-snug text-primary md:text-3xl">
+                {data.designDecisionsSectionTitle ?? "What I decided and why"}
+              </h2>
+            </motion.div>
+
+            <motion.div
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.08 } },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              className="mt-12 grid gap-6 sm:grid-cols-2"
+            >
+              {data.designDecisions.map((dd, idx) => (
+                <motion.div
+                  key={dd.number}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col rounded-xl border border-border bg-white p-6 shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-sm font-semibold text-primary">
+                      {String(dd.number).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-lg font-semibold text-primary">
+                      {dd.title}
+                    </h3>
+                  </div>
+                  {dd.whatWeDid && (
+                    <>
+                      <p className="mt-4 text-[10px] font-medium uppercase tracking-wider text-secondary">
+                        What I did
+                      </p>
+                      <p className="mt-1 text-sm font-medium text-primary">
+                        {dd.whatWeDid}
+                      </p>
+                    </>
+                  )}
+                  <p className="mt-3 text-[10px] font-medium uppercase tracking-wider text-secondary">
+                    Why
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-secondary">
+                    {dd.whyItMattered}
+                  </p>
+                  <p className="mt-3 text-[10px] font-medium uppercase tracking-wider text-secondary">
+                    Trade-off
+                  </p>
+                  <p className="mt-1 border-l-2 border-accent/30 pl-3 text-sm leading-relaxed text-secondary">
+                    {dd.tradeoff}
+                  </p>
+                </motion.div>
+              ))}
+              {data.extraDecisionCards?.map((card, idx) => (
+                <motion.div
+                  key={card.title}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col rounded-xl border border-border bg-white p-6 shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-sm font-semibold text-primary">
+                      {String(data.designDecisions.length + idx + 1).padStart(
+                        2,
+                        "0"
+                      )}
+                    </span>
+                    <h3 className="text-lg font-semibold text-primary">
+                      {card.title}
+                    </h3>
+                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-secondary">
+                    {card.description}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      ) : (
+        <>
+          {data.designDecisions.map((dd, i) => (
+            <section
+              key={dd.number}
+              className={`relative overflow-hidden px-6 py-20 md:py-28 ${
+                i % 2 === 0 ? "bg-card" : "bg-white"
+              }`}
+            >
+              <DecisionGeometry index={i} />
 
           <div className="relative mx-auto w-full max-w-5xl">
             {/* Number badge + label */}
@@ -453,7 +1049,25 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
               </h3>
             </motion.div>
 
-            {/* The Question */}
+            {/* The Question (when not simpleFormat) */}
+            {!dd.simpleFormat && dd.question && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportOnce}
+                transition={{ duration: 0.5, delay: 0.05 }}
+                className="mt-8"
+              >
+                <p className="text-xs font-medium uppercase tracking-wider text-secondary">
+                  The Question
+                </p>
+                <p className="mt-3 border-l-2 border-accent/30 pl-4 text-lg font-medium leading-relaxed text-primary md:text-xl">
+                  {dd.question}
+                </p>
+              </motion.div>
+            )}
+
+            {/* What we did (simpleFormat) or Why This Mattered */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -462,28 +1076,30 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
               className="mt-8"
             >
               <p className="text-xs font-medium uppercase tracking-wider text-secondary">
-                The Question
+                {dd.simpleFormat ? "What we did" : "Why This Mattered"}
               </p>
-              <p className="mt-3 border-l-2 border-accent/30 pl-4 text-lg font-medium leading-relaxed text-primary md:text-xl">
-                {dd.question}
+              <p className="mt-3 max-w-3xl text-base leading-relaxed text-secondary">
+                {dd.simpleFormat ? dd.whatWeDid : dd.whyItMattered}
               </p>
             </motion.div>
 
-            {/* Why This Mattered */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewportOnce}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-8"
-            >
-              <p className="text-xs font-medium uppercase tracking-wider text-secondary">
-                Why This Mattered
-              </p>
-              <p className="mt-3 max-w-3xl text-base leading-relaxed text-secondary">
-                {dd.whyItMattered}
-              </p>
-            </motion.div>
+            {/* Why (simpleFormat only) */}
+            {dd.simpleFormat && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportOnce}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mt-8"
+              >
+                <p className="text-xs font-medium uppercase tracking-wider text-secondary">
+                  Why
+                </p>
+                <p className="mt-3 max-w-3xl text-base leading-relaxed text-secondary">
+                  {dd.whyItMattered}
+                </p>
+              </motion.div>
+            )}
 
             {/* Options (if option-based decision) */}
             {dd.options && dd.options.length > 0 && (
@@ -587,7 +1203,7 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
               </motion.div>
             )}
 
-            {/* Image placeholder */}
+            {/* Image */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -595,129 +1211,66 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
               transition={{ duration: 0.5, delay: 0.35 }}
               className="mt-10"
             >
-              <ImagePlaceholder label={dd.imageLabel} />
+              {dd.image ? (
+                <div className="overflow-hidden rounded-xl border border-border bg-white">
+                  <Image
+                    src={dd.image}
+                    alt={dd.imageLabel}
+                    width={1200}
+                    height={680}
+                    className="h-auto w-full object-contain"
+                  />
+                </div>
+              ) : (
+                <ImagePlaceholder label={dd.imageLabel} />
+              )}
             </motion.div>
           </div>
         </section>
       ))}
+        </>
+      )}
 
-      {/* ========================= CORE IMPACT ========================= */}
-      <section className="relative overflow-hidden bg-white px-6 py-20 md:py-28">
-        <ImpactGeometry />
-        <div className="relative mx-auto w-full max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-sm font-medium uppercase tracking-widest text-secondary">
-              The Core Impact
-            </p>
-            <div className="mt-6 border-l-4 border-accent pl-6">
-              <h2 className="text-2xl font-semibold leading-snug text-primary md:text-3xl">
-                {data.coreImpact.headline}
-              </h2>
-              <p className="mt-4 max-w-3xl text-base leading-relaxed text-secondary md:text-lg">
-                {data.coreImpact.description}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ========================= WHAT I LEARNED ========================= */}
+      {/* ========================= CTA (contact) ========================= */}
       <section className="relative overflow-hidden bg-card px-6 py-20 md:py-28">
-        <LearningsGeometry />
         <div className="relative mx-auto w-full max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.5 }}
+            className="rounded-2xl border border-border bg-white p-8 text-center shadow-sm md:p-12"
           >
-            <p className="text-sm font-medium uppercase tracking-widest text-secondary">
-              What I Learned
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.1 } },
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            className={`mt-8 grid gap-6 ${
-              data.learnings.length <= 2
-                ? "md:grid-cols-2"
-                : "md:grid-cols-2 lg:grid-cols-3"
-            }`}
-          >
-            {data.learnings.map((learning, idx) => (
-              <motion.div
-                key={idx}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.5 }}
-                className="rounded-xl border border-border bg-white p-6"
-              >
-                <h4 className="text-sm font-semibold leading-snug text-primary">
-                  {learning.title}
-                </h4>
-                <p className="mt-3 text-sm leading-relaxed text-secondary">
-                  {learning.description}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ========================= NEXT CASE STUDY ========================= */}
-      <section className="bg-white px-6 py-20 md:py-28">
-        <div className="mx-auto w-full max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-sm font-medium uppercase tracking-widest text-secondary">
-              Next Case Study
+            <h2 className="text-xl font-semibold text-primary md:text-2xl">
+              {data.cta?.heading ?? "Want to know more?"}
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-secondary">
+              {data.cta?.body ??
+                "If you'd like to dig deeper into this project or talk about working together, get in touch."}
             </p>
             <Link
-              href={data.nextStudy.href}
-              className="group mt-6 block overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl md:p-8"
+              href="/#contact"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-accent">
-                    {data.nextStudy.company}
-                  </p>
-                  <h3 className="mt-1 text-xl font-semibold text-primary transition-colors group-hover:text-accent md:text-2xl">
-                    {data.nextStudy.title}
-                  </h3>
-                </div>
-                <svg
-                  className="h-6 w-6 flex-shrink-0 text-secondary transition-all group-hover:translate-x-1 group-hover:text-accent"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
+              {data.cta?.buttonLabel ?? "Contact me"}
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </Link>
           </motion.div>
         </div>
       </section>
+
+      {/* ========================= CASE STUDY NAV (prev / next) ========================= */}
+      <CaseStudyNav />
     </main>
   );
 }

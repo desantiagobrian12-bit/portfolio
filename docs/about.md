@@ -143,5 +143,4 @@ AI makes me faster, not lazier. Every AI-generated output goes through my judgme
 
 ## Profile Photo
 
-<!-- Status: To add later -->
-<!-- Drop your headshot in /public/images/profile.jpg when ready -->
+Profile images are in `public/images/`: use `profile.png` (color) or `profile-bw.png` (black and white). In the app, reference as `/images/profile.png` or `/images/profile-bw.png`.
