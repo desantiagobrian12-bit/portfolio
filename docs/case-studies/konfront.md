@@ -143,7 +143,7 @@ Replaced a fully manual, paper-based medication delivery process with a centrali
 
 ## Assets
 
-All assets live in `public/images/case-studies/konfront/`. Reference in app/MDX with path `/images/case-studies/konfront/<filename>`.
+All assets live in `public/images/case-studies/konfront/`. Reference in the app with path `/images/case-studies/konfront/<filename>`.
 
 | Asset | Filename | Path | Notes |
 |-------|----------|------|-------|

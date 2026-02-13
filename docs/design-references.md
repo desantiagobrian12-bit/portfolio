@@ -2,9 +2,9 @@
 
 ## Where reference images are stored
 
-Local inspiration screenshots and mood boards live in **`docs/inspiration/`** (not deployed). Current files:
+Local inspiration screenshots and mood boards can live in **`docs/inspiration/`** (optional folder, not deployed). If you use this folder, you can add files such as:
 
-| File | Use |
+| File (examples) | Use |
 |------|-----|
 | `about-ref-yuri.png` | About section reference (Yuri Kim) |
 | `billboard-shapes.png` | Billboard / hero shapes |

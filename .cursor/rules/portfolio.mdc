@@ -9,10 +9,10 @@ globs: **/*
 Personal portfolio website for Brian De Santiago, a Product Designer with 2.5 years of experience in enterprise and B2B products (GenAI, dashboards, design systems).
 
 ## Tech Stack
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Styling:** Tailwind CSS v4
 - **Animations:** Framer Motion
-- **Content:** MDX for case studies
+- **Content:** Case study copy in `docs/case-studies/*.md`; implemented in TSX pages under `src/app/case-studies/<slug>/page.tsx`
 - **Deployment:** Vercel
 - **Language:** TypeScript
 
@@ -20,19 +20,16 @@ Personal portfolio website for Brian De Santiago, a Product Designer with 2.5 ye
 ```
 /src
   /app              — Next.js App Router pages
-    /case-studies    — Dynamic case study pages
+    /case-studies    — Case study pages: c3-genai, konfront-healthcare, wizeline-learning
     /about           — About page
-  /components        — Reusable React components
-    /ui              — Base UI components (Button, Card, etc.)
-    /sections        — Page sections (Hero, CaseStudyCard, etc.)
-    /layout          — Layout components (Header, Footer, Nav)
-  /lib               — Utility functions and helpers
-  /content           — MDX case study files
-  /styles            — Global styles
+  /components       — Reusable React components
+    /sections        — Page sections (Hero, CaseStudies, CaseStudyLayout, etc.)
+    /layout         — Layout components (Header, Footer)
+  /lib              — Utility functions, case study nav (case-studies.ts)
 /public
-  /images            — Static images and mockups
+  /images           — Static images and mockups
     /case-studies    — Case study assets organized by project
-/docs                — Project documentation and content drafts (NOT deployed)
+/docs               — Project documentation and content drafts (NOT deployed)
 ```
 
 ## Design Principles

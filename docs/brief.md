@@ -46,11 +46,11 @@ What should someone take away after visiting this portfolio?
 | Page | Description |
 |------|-------------|
 | **Home** | Hero with one-liner, featured case studies (3), skills/tools snapshot, CTA |
-| **Case Study: C3 AI GenAI** | Enterprise conversational AI experience (ChatGPT for enterprises) |
-| **Case Study: Konfront Healthcare Logistics** | Healthcare logistics platform design |
-| **Case Study: Wizeline Learning Platform** | Learning experience design platform |
-| **About** | Bio, What Sets Me Apart, How I Use AI, experience timeline, tools, certifications |
-| **Contact** | Email + LinkedIn, clear call-to-action |
+| **Case Study: C3 AI GenAI** | `/case-studies/c3-genai` — Enterprise conversational AI experience |
+| **Case Study: Konfront Healthcare Logistics** | `/case-studies/konfront-healthcare` — Healthcare logistics platform design |
+| **Case Study: Wizeline Learning Platform** | `/case-studies/wizeline-learning` — Learning experience design platform |
+| **About** | `/about` — Bio, What Sets Me Apart, How I Use AI, experience timeline, tools, certifications |
+| **Contact** | Email + LinkedIn, clear call-to-action (section on home and/or about) |
 
 ---
 

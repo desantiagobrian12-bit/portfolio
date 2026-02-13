@@ -154,7 +154,7 @@ Filters add a step before asking, which is more friction than “just type”. I
 
 ## Assets
 
-All assets live in `public/images/case-studies/c3-genai/`. Reference in app/MDX with path `/images/case-studies/c3-genai/<filename>`.
+All assets live in `public/images/case-studies/c3-genai/`. Reference in the app with path `/images/case-studies/c3-genai/<filename>`.
 
 | Filename | Use in case study |
 |----------|--------------------|
@@ -174,5 +174,5 @@ All assets live in `public/images/case-studies/c3-genai/`. Reference in app/MDX 
 ## Applying this to the portfolio
 
 - **Cover:** The case study page already uses `cover-home.png` as the hero; no change needed.
-- **Features section:** When you add a "Key features" block to the case study page (or MDX), use the image paths above. You may need to extend `CaseStudyLayout` / `CaseStudyData` to support a features list with images (reasoning, call tools, data tables/charts, filters, popovers).
+- **Features section:** When you add a "Key features" block to the case study page, use the image paths above. You may need to extend `CaseStudyLayout` or the case study page data to support a features list with images (reasoning, call tools, data tables/charts, filters, popovers).
 - **Design decisions:** The MD uses a short **What we did / Why / Trade-off** format instead of "options considered" + three cards. When you sync the portfolio page, you can either keep the existing three-decision structure and only change the copy to match this breakdown, or add a layout variant that renders this simpler format without the options list.

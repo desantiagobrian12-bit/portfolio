@@ -7,7 +7,7 @@
 | **Company** | Wizeline |
 | **Role** | UX Designer |
 | **Timeline** | Aug 2023 – Jun 2024 |
-| **Team** | <!-- Brian: fill in team size --> |
+| **Team** | Cross-functional (design, LXD, product) |
 | **Platform** | Web application (Wizeline Academy — internal learning platform) |
 
 ---
@@ -138,7 +138,7 @@ Personalized IA is more complex to build and maintain. Adding a new course means
 
 ## Assets
 
-All assets live in `public/images/case-studies/wizeline/`. Reference in app/MDX with path `/images/case-studies/wizeline/<filename>`.
+All assets live in `public/images/case-studies/wizeline/`. Reference in the app with path `/images/case-studies/wizeline/<filename>`.
 
 | Asset | Filename | Path | Notes |
 |-------|----------|------|-------|

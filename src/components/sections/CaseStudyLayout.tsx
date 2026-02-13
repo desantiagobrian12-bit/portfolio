@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { CASE_STUDIES_NAV } from "@/lib/case-studies";
+import CanvasBackgroundDots from "@/components/CanvasBackgroundDots";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -283,27 +284,6 @@ function NPSBadge({
 
 // ─── Geometric backgrounds per section position ──────────────────────────────
 
-function HeroGeometry() {
-  return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      <svg
-        className="absolute -right-16 -top-16 h-[280px] w-[280px] text-border/30 md:h-[360px] md:w-[360px]"
-        viewBox="0 0 400 400"
-        fill="none"
-      >
-        <circle cx="200" cy="200" r="196" stroke="currentColor" strokeWidth="1" />
-      </svg>
-      <svg
-        className="absolute bottom-16 left-8 h-12 w-12 text-border/40"
-        viewBox="0 0 48 48"
-        fill="none"
-      >
-        <rect x="1" y="1" width="46" height="46" stroke="currentColor" strokeWidth="1" />
-      </svg>
-    </div>
-  );
-}
-
 function ProblemGeometry() {
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -492,7 +472,7 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
     <main>
       {/* ========================= HERO ========================= */}
       <section className="relative overflow-hidden bg-white px-6 pt-28 pb-16 md:pt-36 md:pb-20">
-        <HeroGeometry />
+        <CanvasBackgroundDots />
 
         <div className="relative mx-auto w-full max-w-5xl">
           {/* Back link */}

@@ -18,7 +18,8 @@ export default function Header() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-white/80 backdrop-blur-md"
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
+      <nav className="px-6 py-3">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-secondary/15">
             <Image
@@ -48,6 +49,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+        </div>
         </div>
       </nav>
     </motion.header>

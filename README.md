@@ -1,21 +1,40 @@
-Brian De Santiago — Portfolio (Next.js).
+# Brian De Santiago — Portfolio
+
+Personal portfolio site (Next.js). Product design case studies, about, and contact.
+
+## Tech stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **Language:** TypeScript
+
+Case study content lives in `docs/case-studies/*.md` and is implemented in TSX pages under `src/app/case-studies/`.
 
 ## Project structure
 
 | Path | Purpose |
 |------|--------|
+| **`src/app/`** | App Router: `page.tsx` (home), `about/`, `case-studies/<slug>/`. |
+| **`src/components/`** | `layout/` (Header, Footer), `sections/` (Hero, CaseStudies, CaseStudyLayout, etc.). |
+| **`src/lib/`** | Utilities and case study nav config (`case-studies.ts`). |
 | **`docs/`** | Documentation and content (not deployed). Case study copy, about, brief, resume, design references. |
-| **`docs/case-studies/`** | Case study markdown: `c3-genai.md`, `konfront.md`, `wizeline-learning.md`. Image paths in these files use `/images/case-studies/<project>/...` (served from `public/`). |
-| **`docs/inspiration/`** | Local reference images (mood boards, portfolio refs). Not deployed. See `docs/design-references.md` for the list. |
-| **`public/images/`** | Deployed assets: `profile.png`, `profile-bw.png`, and `case-studies/<project>/` (all case study images). Reference in app as `/images/...`. |
+| **`docs/case-studies/`** | Case study markdown: `c3-genai.md`, `konfront.md`, `wizeline-learning.md`. Image paths use `/images/case-studies/<project>/...` (served from `public/`). |
+| **`docs/inspiration/`** | Optional. Local reference images (mood boards, portfolio refs). Not deployed. See `docs/design-references.md` for the list. |
+| **`public/images/`** | Deployed assets: `profile.png`, `profile-bw.png`, and `case-studies/<project>/` for case study images. Reference in app as `/images/...`. |
 
-## Getting Started
+## Getting started
 
-First, run the development server:
+Install dependencies and run the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
+```
+
+Or with yarn, pnpm, or bun:
+
+```bash
 yarn dev
 # or
 pnpm dev
@@ -23,23 +42,19 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+On Windows you can double-click **`run-dev.bat`** (runs `npm run dev` in the project folder).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The app is set up for deployment on [Vercel](https://vercel.com). See [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for details.

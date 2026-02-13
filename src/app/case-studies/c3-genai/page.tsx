@@ -48,7 +48,7 @@ const features: CaseStudyFeature[] = [
         alt: "Popover in dashboard, quick AI actions from dashboard context",
       },
       {
-        src: `${basePath}/popover-canvas.png`,
+        src: `${basePath}/popover-canvas.png?v=2`,
         alt: "Popover in canvas, AI actions from a canvas view",
       },
       {
