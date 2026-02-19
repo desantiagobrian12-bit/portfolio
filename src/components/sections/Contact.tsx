@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import SectionShapes from "@/components/SectionShapes";
+import { RESUME_URL } from "@/lib/links";
 
 export default function Contact() {
   return (
@@ -12,7 +13,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
           className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between"
         >
@@ -39,7 +40,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, delay: 0.15 }}
           className="mt-10 flex flex-wrap items-center gap-5"
         >
@@ -52,7 +53,9 @@ export default function Contact() {
             LinkedIn
           </a>
           <a
-            href="#"
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm text-secondary transition-colors hover:text-primary"
           >
             Resume

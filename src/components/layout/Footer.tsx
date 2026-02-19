@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import SectionShapes from "@/components/SectionShapes";
+import { RESUME_URL } from "@/lib/links";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -59,7 +60,7 @@ export default function Footer() {
             LinkedIn
           </a>
           <a
-            href="https://drive.google.com/file/d/1_7a23Fo8EQWsVPf1p1fRBNPVlRcjss6R/view?usp=drive_link"
+            href={RESUME_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-secondary transition-colors hover:text-primary"

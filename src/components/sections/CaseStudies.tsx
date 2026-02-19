@@ -31,7 +31,7 @@ const caseStudies: CaseStudy[] = [
     tags: ["GenAI", "Enterprise"],
     metric: "~40% task reduction",
     href: "/case-studies/c3-genai",
-    image: "/images/case-studies/c3-genai/cover-home.png",
+    image: "/images/case-studies/c3-genai/Cover-c3.jpg",
     mobileImage: null,
     bg: "bg-[#171717]",
     dark: true,
@@ -48,7 +48,7 @@ const caseStudies: CaseStudy[] = [
     tags: ["Healthcare", "B2B", "Logistics"],
     metric: "1,100+ patients",
     href: "/case-studies/konfront-healthcare",
-    image: "/images/case-studies/konfront/Konfront-case-study-card.png?v=4",
+    image: "/images/case-studies/konfront/Cover-card-konfront.png",
     mobileImage: null,
     bg: "bg-[#CFDEF3]",
     dark: false,
@@ -65,7 +65,7 @@ const caseStudies: CaseStudy[] = [
     tags: ["LXD", "Accessibility", "IA"],
     metric: "NPS 9/10",
     href: "/case-studies/wizeline-learning",
-    image: "/images/case-studies/wizeline/cover-wizeline.png?v=3",
+    image: "/images/case-studies/wizeline/Cover-card-wizeline.png",
     mobileImage: null,
     bg: "bg-[#152A5E]",
     dark: true,
@@ -203,10 +203,9 @@ export default function CaseStudies() {
                               alt={`${study.title} desktop screenshot`}
                               width={800}
                               height={520}
-                              sizes="(max-width: 768px) 100vw, 800px"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 640px"
                               quality={90}
                               className="block h-auto w-full object-cover object-top"
-                              unoptimized={!study.dark}
                             />
                           </div>
                           {/* Mobile screenshot overlapping */}
@@ -234,11 +233,10 @@ export default function CaseStudies() {
                             alt={`${study.title} product screenshot`}
                             width={800}
                             height={520}
-                            sizes="(max-width: 768px) 100vw, 800px"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 640px"
                             quality={90}
                             className={`block h-auto w-full object-top ${study.imageContain ? "object-contain" : "object-cover"}`}
                             style={{ color: "transparent", borderRadius: "8px" }}
-                            unoptimized={!study.dark}
                           />
                         </div>
                       )}

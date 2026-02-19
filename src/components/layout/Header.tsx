@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { RESUME_URL } from "@/lib/links";
 
 const navLinks = [
   { label: "Work", href: "/#work" },
@@ -55,7 +56,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="https://drive.google.com/file/d/1_7a23Fo8EQWsVPf1p1fRBNPVlRcjss6R/view?usp=drive_link"
+              href={RESUME_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-secondary transition-colors hover:text-primary"
@@ -110,7 +111,7 @@ export default function Header() {
                   </Link>
                 ))}
                 <Link
-                  href="https://drive.google.com/file/d/1_7a23Fo8EQWsVPf1p1fRBNPVlRcjss6R/view?usp=drive_link"
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMenuOpen(false)}
