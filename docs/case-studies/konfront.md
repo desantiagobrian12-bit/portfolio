@@ -1,158 +1,217 @@
 # Case Study: Konfront — Healthcare Logistics Platform
 
-## Overview
+> **Base template.** This doc defines the structure, order, and tone for case studies. Use it as the source when implementing or duplicating a case study in the app. Content is presented in flow layout: hero → The Product → The Core Problem → How I thought through it → The Core Impact (with metrics). Tone: first person, direct, professional but approachable. No emojis. One em dash per paragraph max.
 
-| | |
-|---|---|
+---
+
+## 1. Overview (meta)
+
+| Field | Value |
+|-------|--------|
 | **Company** | Konfront |
 | **Role** | Product Designer |
-| **Timeline** | Sept 2024 – Aug 2025 |
+| **Timeline** | Apr 2025 – Aug 2025 |
 | **Team** | 2 designers, developers, PMs, product adoption team |
-| **Platform** | Desktop web app (distributors) + Mobile webapp (last-mile operators) |
+| **Platform** | Desktop web app (distributors), Mobile web app (last-mile operators) |
+| **Tags** | Healthcare, B2B, Logistics |
 
 ---
 
-## Cover
+## 2. Hero
 
-Use this as the hero / first image for the case study:
+**Cover image:** Sets the scene. Use a single strong visual (e.g. delivery flow, desktop + mobile).
 
-![Konfront Healthcare Logistics — Case study cover](/images/case-studies/konfront/case-studie-cover.png)
+- **Image path:** `/images/case-studies/konfront/cover-delivery.png`
+- **Alt:** Konfront healthcare logistics platform: mobile and desktop interfaces
 
----
+**Title:** Healthcare Logistics Platform
 
-## The Product
+**Subtitle (hook):** One line that grabs attention and states the stakes.
 
-A digital platform for managing the delivery of high-cost hemophilia medications across Mexico. Desktop interface for distributors managing batches. Mobile webapp for operators delivering in the field. Over 1,100 patients depending on timely, cold-chain deliveries administered intravenously at home.
+> 1,100 patients depend on medication delivered to their door. When I joined, every delivery was tracked on paper.
 
----
+**Project details (shown in hero):**
 
-## The Core Problem
-
-**The entire medication delivery process was on paper — and lives depended on it.**
-
-The client had recently entered the hemophilia market in Mexico, delivering cold-chain medications to 1,100+ patients through public health institutions like IMSS. But operations were still managed with spreadsheets, paper forms, and disjointed communication.
-
-This meant: no delivery traceability (once a package left the warehouse, visibility dropped to zero), inconsistent validation protocols, and fragmented data across teams. Delays weren't just operational headaches — they impacted patients who needed medication on time.
-
-We needed to digitize the entire logistics chain — from batch upload to patient handoff — while meeting healthcare regulatory requirements and being usable by operators in the field.
-
-![Foundational discovery map — workflow and ecosystem mapping](/images/case-studies/konfront/Foundational-discovery-map.png)
+- **Role:** Product Designer  
+- **Duration:** Apr 2025 – Aug 2025  
+- **Team:** 2 Designers, Dev team, PM, Product adoption  
+- **My contribution:** UX/UI Design, UX Research, Visual system  
 
 ---
 
-## Design Decision 1: Two Products, One System — Desktop + Mobile
+## 3. The Product
 
-### The question
-How do you design for two completely different users in two completely different contexts, within one unified system?
+Short paragraph. What the product is, who it’s for, and why it matters. No jargon.
 
-### Why this problem mattered
-Distributors manage delivery batches at a desk — uploading CSVs, assigning operators, monitoring status across dozens of deliveries. Operators handle the actual deliveries in the field — often outdoors, on mobile, sometimes in areas with poor connectivity. Same system, completely different needs.
-
-### The options I considered
-- **Option A: One responsive web app** — same product, adapts to screen size
-- **Option B: Two separate products with a shared backend** — purpose-built for each context
-- **Option C: Desktop-first with a simplified mobile view** — full functionality on desktop, limited mobile
-
-### Why I chose Option B
-A responsive approach (Option A) sounds efficient but fails when the use cases are fundamentally different. A distributor needs data tables, bulk actions, and real-time dashboards. An operator needs a step-by-step delivery flow, camera access for evidence capture, and large touch targets for outdoor use. Trying to make one UI serve both would compromise both.
-
-Two purpose-built products sharing one backend meant each experience could be optimized for its context without the other getting in the way.
-
-![Desktop and mobile — distributor dashboard and operator delivery flow](/images/case-studies/konfront/desktop.png)
-
-![Mobile prototype — operator delivery flow](/images/case-studies/konfront/Protoype-mobile.png)
-
-### The trade-off
-Two products means more design and development work. More components, more flows, more edge cases. But the alternative — a compromised single product — would've created friction for both user types. In healthcare logistics, friction translates directly to delays, and delays impact patients.
+At Konfront I led the design of a digital platform for managing hemophilia medication deliveries across Mexico. High-cost, cold-chain drugs that patients self-administer at home, delivered through the country’s largest public healthcare system. The pharmaceutical client had recently entered this market; operations still ran on spreadsheets, phone calls, and paper forms. I designed a desktop interface for coordinators managing delivery batches and a mobile web app for operators in the field.
 
 ---
 
-## Design Decision 2: Skipping Wireframes — Straight to High-Fidelity
+## 4. The Core Problem
 
-### The question
-What's the fastest way to validate the product direction with a client who's never seen their process digitized?
+**Headline:** One sentence. The main pain.
 
-### Why this problem mattered
-The client's entire operation was on paper. They had never used a digital tool for this workflow. Showing them wireframes or low-fidelity mockups risked confusion — they needed to *see* the product to believe it was possible and to give meaningful feedback.
+The existing medication delivery process was manual, slow, and error-prone.
 
-### The options I considered
-- **Option A: Standard process** — discovery → wireframes → mid-fi → high-fi → testing
-- **Option B: POC first, then straight to high-fidelity** — quick generative design POC to validate the concept, then jump to polished Figma prototypes
+**Description:** What’s broken and why it matters. Keep it concrete.
 
-### Why I chose Option B
-We started with a quick proof of concept using a generative design tool to validate the core idea. Once stakeholders could visualize the product in context, we skipped wireframes entirely and moved to high-fidelity prototypes in Figma.
-
-This wasn't reckless — the discovery work (stakeholder interviews, workflow mapping, ecosystem analysis) gave us enough confidence in the flows. What we needed was buy-in and detailed feedback, and high-fidelity designs delivered that faster than wireframes ever could.
-
-![Define and ideate — from discovery to high-fidelity direction](/images/case-studies/konfront/define-ideate.png)
-
-### The trade-off
-Skipping wireframes means higher cost of change if you're wrong about the direction. But our discovery map and stakeholder alignment sessions had already validated the flows. The risk of being fundamentally wrong was low. The risk of losing client momentum by showing abstract wireframes was much higher.
-
-### The impact
-High-fidelity prototypes built trust quickly with the client and generated richer, more specific feedback. Instead of "I think this flow makes sense," we got "this status label should say X instead of Y" — the kind of feedback that actually improves the product.
+Once a package left the warehouse, nobody knew where it was. The delivery chain, from prescription upload to patient handoff, was entirely manual. Each clinic documented differently. Operators memorized steps and called coordinators when things went wrong. No traceability, no standardization, and no digital record of whether a patient actually received their medication. For time-critical, temperature-sensitive drugs, that gap was a patient safety risk.
 
 ---
 
-## Design Decision 3: Designing for Auditability — Every Step Traceable
+## 5. How I thought through it (narrative sections)
 
-### The question
-How do you make a logistics platform that's not just functional, but fully auditable from batch upload to patient handoff?
+Section title in the app: **How I thought through it.** Each subsection is a clear step in your process. Use headings, short paragraphs, and one or more images (or video) per step. Optionally add sub-steps (e.g. Branding, Design system) with their own images and captions.
 
-### Why this problem mattered
-This isn't a food delivery app. These are high-cost medications for hemophilia patients. If a delivery fails, there needs to be a clear record of what happened, when, and why. If a patient didn't receive their medication, someone needs to know exactly where the chain broke. Regulatory requirements demanded full traceability.
+### 5.1 What the field actually looked like
 
-### The design approach
-Every screen was designed with auditability in mind:
-- **Status tracking** showed the full lifecycle of each delivery — not just "delivered" or "not delivered," but every state in between
-- **Incident reporting** required operators to capture evidence (photos, notes) when deliveries failed
-- **Validation at handoff** ensured the right medication reached the right patient with proper confirmation
+Before designing anything I needed to understand how deliveries actually worked, not how they were documented. We ran stakeholder interviews with logistics, sales, regulatory, and call center teams, then mapped the real operational workflow end to end.
 
-I refined the status tracking flows after internal reviews — the initial version didn't handle failed deliveries clearly enough. Adding explicit paths for exceptions (wrong address, patient not home, cold-chain compromised) made the system more honest and more useful.
+What we found was messier than expected. Each clinic handled documentation differently. Operators relied on memory and phone calls to get through deliveries. Once a package left the warehouse, the coordination team had no way to track it.
 
-![Design system — components and patterns for both products](/images/case-studies/konfront/Design-system.png)
+**Image:** Foundational discovery map  
+Path: `/images/case-studies/konfront/Foundational-discovery-map.png`
 
-![Konfront branding](/images/case-studies/konfront/Branding.png)
+Four patterns defined the problem:
 
-### The trade-off
-More states and more validation steps means more friction in the delivery flow. Every additional screen an operator has to complete in the field adds time. But in healthcare logistics, skipping validation isn't an option. The design challenge was making each step as fast and frictionless as possible — large touch targets, smart defaults, minimal typing — without removing any essential checkpoint.
+- **No standardization.** Each clinic managed documentation differently, making oversight nearly impossible.
+- **Heavy reliance on manual processes.** Paper forms, spreadsheets, and verbal handoffs. Every step was a potential point of failure.
+- **Zero traceability.** No real-time visibility into delivery status after dispatch. Once a package left the warehouse, it was invisible.
+- **High cognitive load for operators.** Drivers memorized each delivery step and relied on phone calls for clarification instead of following a system.
+
+### 5.2 Designing for two different realities
+
+The discovery work made one thing clear: we were designing for two different users in two different contexts.
+
+The route coordinator works from a desk. They manage delivery batches, assign operators, and monitor status across dozens of deliveries at once. They need data density, bulk actions, and a dashboard they can scan at a glance.
+
+The last-mile operator works outdoors. Often in poor connectivity, making deliveries one at a time. They need a step-by-step flow, large touch targets, and camera access to capture evidence.
+
+A single responsive app would have compromised both. We built two purpose-built products sharing one backend: desktop for coordinators, mobile web for operators.
+
+**Media:**
+
+- **Video:** Desktop prototype walkthrough — `/images/case-studies/konfront/Prototype-desktop-video.mp4`
+- **Image:** Mobile + desktop — `/images/case-studies/konfront/mobile-desktop-prototype.png` (or mobile only: `Protoype-mobile.png`)
+
+**Sub-step: Creating a congruent design system**
+
+We defined a single visual language for both products: base and brand colors, grayscale, and Inter for typography. Design tokens map consistently from Figma into the app so delivery cards and buttons look and behave the same on desktop and mobile. The component library covers buttons in multiple states, calendar inputs, dropdowns with validation states, and shared patterns for forms and tables.
+
+**Images (grid with captions):**
+
+| Caption | Path |
+|--------|------|
+| Brand colors, base colors, grayscale and typeface | `Branding.png` |
+| Tokens for color, padding, and borders | `Tokens.png` |
+| Color variables in Figma for consistent theming | `Color variables in figma.png` |
+| Components, spacing, icons and other documentation | `Design system.png` |
+
+### 5.3 Building trust by making it real
+
+The client had never used a digital tool for this workflow. Their entire operation was on paper. Showing wireframes or abstract mockups risked confusion. They needed to see the product to believe it was possible.
+
+We started with a quick proof of concept using v0 to validate the core idea and get early stakeholder alignment. Once the team could visualize the product in context, we skipped wireframes and went straight to high-fidelity prototypes in Figma.
+
+Discovery had already validated the flows. What we needed was buy-in and specific feedback. Polished prototypes delivered that faster than wireframes. Instead of “I think this flow makes sense,” we got “this status label should say X instead of Y.” That’s the kind of feedback that moves the product forward.
+
+**Image (optional):** Define and ideate — `define-ideate.png`
+
+### 5.4 What testing changed
+
+We ran usability sessions with 5 last-mile operators, about 25 minutes each. Goal: validate the mobile experience before development and catch friction we couldn’t see from a desk.
+
+Three things came back clearly:
+
+- **Language wasn’t landing.** Operators found some instructions confusing. We rewrote all in-app copy using simpler, field-friendly terms they actually use.
+- **Patients kept asking questions operators couldn’t answer:** dosage, storage, side effects. We added an FAQ screen with suggested responses so operators could help confidently without calling the nurse line.
+- **Incident reporting felt incomplete.** When something went wrong on a delivery, operators had no way to add context. We added a comments field and a direct-call-to-nurse option for situations that needed clinical support.
+
+These weren’t cosmetic changes. They were the difference between a tool that technically works and one people actually trust in the field.
 
 ---
 
-## The Core Impact
+## 6. The Core Impact
 
-Replaced a fully manual, paper-based medication delivery process with a centralized digital platform serving 1,100+ hemophilia patients across Mexico. Enabled full delivery traceability from batch upload to patient handoff. Something that didn't exist before.
+**Headline:** One sentence. The outcome.
+
+A fully manual, paper-based process replaced with end-to-end digital traceability.
+
+**Description:** Who benefits and how. Keep it concrete.
+
+1,100+ hemophilia patients across Mexico now receive medication through a documented, visible, and accountable workflow. From batch upload to patient handoff, every step is tracked. That visibility didn’t exist before.
+
+**Impact metrics (show as cards with icon + value + description):**
+
+| Value | Category | Description |
+|-------|----------|--------------|
+| 90% | Digital Adoption | of deliveries now managed digitally through the platform |
+| 70% less | Efficiency | time spent assigning routes compared to the previous manual process |
+| 30 min | Onboarding | average onboarding time for new operators, most with limited tech experience |
+| 6 | Quality Assurance | critical usability issues caught and resolved before a single line of code was written |
+| 25+ | Design System | UI components built, documented, and shared across both products |
+
+*These aren’t projections. They came from real usage after launch.*
 
 ---
 
-## Results (from HealthCareCompany.pdf)
+## 7. Key decisions (optional for doc / future UI)
 
-<!-- Paste real-world metrics and outcomes from HealthCareCompany.pdf here. Examples: delivery time reduction, traceability %, operator adoption, patient impact, regulatory compliance, etc. -->
+Use this section in the doc to capture rationale. The app can show it as cards (What I did / Why / Trade-off) or omit it for a shorter flow.
+
+### Decision 1: Two products, one system
+
+- **What I did:** Built a desktop app for coordinators and a mobile web app for operators. Two separate products sharing one backend.
+- **Why:** A coordinator managing 50 deliveries at a desk and a driver delivering one package in the rain have nothing in common except the data. One responsive product would have compromised both experiences.
+- **Trade-off:** Double the design and dev surface. In healthcare logistics, a compromised experience means friction, friction means delays, and delays affect patients.
+
+### Decision 2: Straight to high-fidelity
+
+- **What I did:** Quick POC to validate the concept, then directly to polished Figma prototypes. No wireframes in between.
+- **Why:** The client had never seen their process digitized. Abstract mockups would have stalled alignment. They needed to see the real thing to give meaningful feedback.
+- **Trade-off:** Higher cost of change if the direction was wrong. Discovery had already validated the flows. The risk of losing client momentum with wireframes was greater than the risk of being off.
+
+### Decision 3: Every step traceable
+
+- **What I did:** Designed every screen for auditability: full lifecycle status tracking, evidence-based incident reporting, and identity validation at patient handoff.
+- **Why:** These are high-cost hemophilia medications. If a delivery fails, there has to be a clear record of what happened, when, and why. Regulatory requirements demanded full traceability.
+- **Trade-off:** More validation steps mean more friction per delivery. We made each step as fast as possible with large touch targets, smart defaults, and minimal typing, without removing any essential checkpoint.
+
+### Decision 4: What I chose not to build
+
+- **What I did:** Deliberately excluded offline mode, GPS tracking, and admin/nurse dashboards from the MVP.
+- **Why:** Scoping is a design decision. Offline wasn’t essential for routes with stable signal. GPS raised privacy concerns. Admin dashboards were premature. We needed to standardize the core delivery workflow before expanding to other roles.
+- **Trade-off:** Saying no to features stakeholders wanted. A focused MVP that works beats a bloated one that doesn’t. These are on the roadmap, not abandoned.
 
 ---
 
-## What I Learned
+## 8. Assets
 
-**Regulatory complexity isn't the enemy of good design — it's the context.** Translating a high-risk, paper-based workflow into a digital platform pushed me to focus on real-world usability and transparency. The constraints made the design decisions more meaningful, not less.
+All assets live in `public/images/case-studies/konfront/`. In the app, reference with path `/images/case-studies/konfront/<filename>`.
 
-**Stakeholder alignment is everything in B2B.** Especially when designing tools that impact not just workflows, but patient outcomes. Every design decision had to be defensible to sales, logistics, marketing, regulatory, and engineering — all at once.
-
-**Show, don't tell.** Going straight to high-fidelity designs built trust faster than any process diagram or wireframe deck could have. In contexts where stakeholders have never seen their process digitized, making it real is the fastest path to alignment.
+| Purpose | Filename | Notes |
+|---------|----------|--------|
+| Hero / cover | `cover-delivery.png` | Case study hero visual |
+| Discovery map | `Foundational-discovery-map.png` | End-to-end workflow mapping |
+| Define & ideate | `define-ideate.png` | Define and ideate phase (optional) |
+| Design system | `Design system.png` | Components, spacing, icons |
+| Branding | `Branding.png` | Color palette and typography |
+| Tokens | `Tokens.png` | Tokens in mobile UI |
+| Color variables | `Color variables in figma.png` | Figma variables |
+| Desktop + mobile | `mobile-desktop-prototype.png` | Side-by-side or combined |
+| Desktop prototype video | `Prototype-desktop-video.mp4` | Video walkthrough |
+| Mobile prototype | `Protoype-mobile.png` | Operator flow (filename typo: Protoype) |
 
 ---
 
-## Assets
+## Checklist for new case studies (from this base)
 
-All assets live in `public/images/case-studies/konfront/`. Reference in the app with path `/images/case-studies/konfront/<filename>`.
-
-| Asset | Filename | Path | Notes |
-|-------|----------|------|-------|
-| Hero / cover | `case-studie-cover.png` | `/images/case-studies/konfront/case-studie-cover.png` | Case study cover visual |
-| Foundational discovery map | `Foundational-discovery-map.png` | `/images/case-studies/konfront/Foundational-discovery-map.png` | Discovery and workflow mapping |
-| Define & ideate | `define-ideate.png` | `/images/case-studies/konfront/define-ideate.png` | Define and ideate phase |
-| Design system | `Design-system.png` | `/images/case-studies/konfront/Design-system.png` | Design system |
-| Branding | `Branding.png` | `/images/case-studies/konfront/Branding.png` | Konfront branding |
-| Desktop prototype | `desktop.png` | `/images/case-studies/konfront/desktop.png` | Distributor dashboard |
-| Desktop prototype video | `Prototype-desktop-video.mp4` | `/images/case-studies/konfront/Prototype-desktop-video.mp4` | Video walkthrough of desktop product |
-| Mobile prototype | `Protoype-mobile.png` | `/images/case-studies/konfront/Protoype-mobile.png` | Operator delivery flow (filename has typo: Protoype) |
-| Additional | `cover.png`, `mobile.png`, `zz.avif` | — | Optional alternates |
+- [ ] Overview table: Company, Role, Timeline, Team, Platform, Tags
+- [ ] Hero: cover image, title, subtitle (hook), project details
+- [ ] The Product: one paragraph, no jargon
+- [ ] The Core Problem: headline + short description
+- [ ] How I thought through it: 3–5 narrative sections, each with title, copy, and image(s) or video; sub-steps and captions where needed
+- [ ] The Core Impact: headline + description + metrics table (value, category, description)
+- [ ] Optional: Key decisions (What I did / Why / Trade-off)
+- [ ] Assets table with paths and notes
+- [ ] Tone: first person, direct, one em dash per paragraph max, no emojis

@@ -8,157 +8,163 @@ import type {
 export const metadata: Metadata = {
   title: "Konfront Healthcare Logistics Platform | Brian De Santiago",
   description:
-    "Case study on replacing paper-based medication delivery with a centralized digital platform.",
+    "Case study: Designing a digital platform to replace paper-based medication delivery for 1,100+ hemophilia patients across Mexico.",
 };
 
 const basePath = "/images/case-studies/konfront";
+const imgV = "?v=12"; // bump when you replace image files so the page shows the new ones
 
-const designProcessSteps: CaseStudyFeature[] = [
+// ─── Narrative sections ─────────────────────────────────────────────────────
+//
+// IMAGE PROPOSALS (replace placeholders once assets are ready):
+//
+// Section 1 – "What the field actually looked like"
+//   → Simplified workflow diagram showing the actual delivery chain
+//     (not the raw discovery map, but a clean, designed version of it)
+//   → Or: a before/after showing paper process vs. digital process
+//
+// Section 2 – "Designing for two different realities"
+//   → Side-by-side: desktop dashboard (coordinator view) + mobile delivery
+//     screen (operator view). One frame, two products.
+//   → Branding sub-step: color palette, typography, logo lockup (like the
+//     allUP reference: clean grid of tokens, not a full brand guidelines page)
+//   → Design system sub-step: component grid (buttons, inputs, status badges,
+//     cards) with short captions. Visual-heavy, minimal text.
+//
+// Section 3 – "Building trust by making it real"
+//   → Before/after: quick v0 POC screenshot next to the final hi-fi Figma
+//     prototype. Shows the jump in fidelity and why it worked.
+//
+// Section 4 – "What testing changed"
+//   → Before/after of a specific UI change from testing (e.g. the incident
+//     reporting screen, or the language simplification). Concrete proof
+//     that testing shaped the product.
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const narrativeSections: CaseStudyFeature[] = [
   {
-    title: "Understanding user and business needs",
+    title: "What the field actually looked like",
+    image: `${basePath}/Foundational-discovery-map.png${imgV}`,
     description:
-      "We ran alignment sessions with sales, logistics, marketing, and regulatory to map the current process. We identified inefficiencies (disconnected data, inconsistent validations, no traceability), mapped roles and technical limits, and defined MVP requirements.",
-    descriptionAfterImage:
-      "The Foundational Discovery Map created a shared understanding across teams. It made fragmentation visible and let us prioritize by business impact and feasibility, bridging the client's reality with our product direction.",
-    image: `${basePath}/Foundational-discovery-map.png`,
+      "Before designing anything, I needed to understand how deliveries actually worked, not how they were documented. We ran stakeholder interviews and mapped the real operational workflow end to end.\n\nWhat we found was messier than expected. Four patterns defined the problem:\n\n\u2022 No standardization across clinics\n\u2022 Heavy reliance on paper forms and verbal handoffs\n\u2022 Zero traceability after a package left the warehouse\n\u2022 High cognitive load for operators who memorized every step",
   },
   {
-    title: "Define and ideate",
+    title: "Designing for two different realities",
+    image: `${basePath}/mobile-desktop-prototype.png${imgV}`,
     description:
-      "We narrowed our focus to two main user types: distributors managing delivery batches, and operators handling the actual deliveries. From there, we defined the core functionalities:\n\n• Uploading and managing deliveries via CSV or manual input\n• Assigning delivery operators\n• Tracking status changes in real time\n• Capturing patient validation during handoff\n• Reporting incidents with supporting evidence",
-    descriptionAfterImage:
-      "These artifacts validated user flows and exposed edge cases early. They became a common reference for design, product, and development.",
-    image: `${basePath}/define-ideate.png`,
+      "We were designing for two completely different users. The route coordinator works from a desk, managing dozens of deliveries at once. They need data density, bulk actions, and dashboards. The last-mile operator works outdoors on a phone, making one delivery at a time. They need a step-by-step flow, large touch targets, and camera access.\n\nA single responsive app would have compromised both. We built two purpose-built products sharing one backend: desktop for coordinators, mobile web for operators.",
     subSteps: [
       {
-        title: "Branding",
+        title: "Creating a congruent design system",
         description:
-          "We designed a visual identity rooted in trust, clarity, and accessibility. The palette and typography work from office screens to outdoor mobile use.",
-        image: `${basePath}/Branding.png`,
-      },
-      {
-        title: "Design system",
-        description:
-          "A lightweight design system with modular components kept desktop and mobile consistent. Buttons, forms, tables, and status indicators sped up development and supported clear, responsive interaction.",
-        image: `${basePath}/Design-system.png`,
+          "We defined a single visual language for both products: base and brand colors, grayscale, and Inter for typography. Design tokens (background-color-tertiary, surface-text-primary, card-surface, border-radius-md, bg-primary) map consistently from Figma variables into the app, so delivery cards and buttons look and behave the same on desktop and mobile. The component library covers buttons in multiple states, calendar inputs, dropdowns with validation states, and shared patterns for forms and tables.",
+        images: [
+          { src: `${basePath}/Branding.png${imgV}`, alt: "Color palette and typography", caption: "Brand colors, base colors, grayscale and typeface." },
+          { src: `${basePath}/Tokens.png${imgV}`, alt: "Tokens applied in mobile UI", caption: "Tokens for color, padding, and borders." },
+          { src: `${basePath}/Color variables in figma.png${imgV}`, alt: "Color variables in Figma", caption: "Color variables in Figma for consistent theming." },
+          { src: `${basePath}/Design system.png${imgV}`, alt: "Components and documentation", caption: "Components, spacing, icons and other documentation." },
+        ],
       },
     ],
   },
   {
-    title: "Prototype and test",
+    title: "What testing changed",
     description:
-      "High-fidelity desktop prototype for distributors (batch upload, assignment, monitoring) and mobile prototype for operators in the field (step-by-step delivery flow, evidence capture, validation at handoff). We tested with stakeholders to validate flows and gather detailed feedback.",
-    video: `${basePath}/Prototype-desktop-video.mp4`,
-    image: `${basePath}/Protoype-mobile.png`,
+      "We ran usability sessions with 5 last-mile operators (~25 min each) to validate the mobile experience before development. Three things came back clearly:\n\n\u2022 Language wasn't landing. We rewrote in-app copy using simpler, field-friendly terms.\n\u2022 Patients asked operators questions they couldn't answer. We added an FAQ with suggested responses.\n\u2022 Incident reporting felt incomplete. We added comments and a direct-call-to-nurse option.\n\nThese weren't cosmetic changes. They were the difference between a tool that technically works and one people actually trust in the field.",
   },
   {
-    title: "Iterate and finalize",
+    title: "Building trust by making it real",
+    video: `${basePath}/Prototype-desktop-video.mp4`,
+    image: `${basePath}/Protoype-mobile.png${imgV}`,
     description:
-      "We conducted UX research and testing to refine the flows and validate the experience with real users. Handoff and close collaboration with engineering ensured the design held up in implementation and met regulatory and traceability requirements.",
+      "The client had never used a digital tool for this workflow. Showing wireframes risked confusion. They needed to see the product to believe it was possible.\n\nWe built a quick proof of concept with v0 to validate the idea, then skipped wireframes and went straight to high-fidelity Figma prototypes. Discovery had already validated the flows. What we needed was buy-in and specific feedback, and polished prototypes delivered that faster than abstractions could.",
   },
 ];
 
+// ─── Case study data ───────────────────────────────────────────────────────
+
 const caseStudyData: CaseStudyData = {
+  layoutVariant: "flow",
+  heroOverviewCompact: true,
   overview: {
     company: "Konfront",
     role: "Product Designer",
     timeline: "Apr 2025 – Aug 2025",
-    team: "2 designers, developers, PMs, product adoption team",
+    team: "2 Designers\nDev team\nPM\nProduct adoption",
     platform: "Desktop web app + Mobile web app",
+    myContribution: "UX/UI Design\nUX Research\nVisual system",
   },
   tags: ["Healthcare", "B2B", "Logistics"],
   title: "Healthcare Logistics Platform",
   subtitle:
-    "Replacing paper-based medication delivery with full digital traceability.",
-  heroImageLabel: "Konfront healthcare logistics case study cover",
-  heroImage: `${basePath}/case-studie-cover.png`,
-  features: designProcessSteps,
-  featuresSectionLabel: "",
-  featuresSectionTitle: "The design process",
-  featuresSectionDescription: "",
-  designDecisionsAsCards: true,
-  designDecisionsSectionTitle: "The key decisions",
-  resultsSection: {
-    label: "Impact delivered",
-    title: "From design decisions to real-world results",
-    metrics: [
-      {
-        value: "90%",
-        description:
-          "Deliveries now managed digitally via the new platform.",
-      },
-      {
-        value: "70% less time",
-        description:
-          "Spent assigning routes compared to the previous manual process.",
-      },
-      {
-        value: "30 min",
-        description: "Average onboarding time for new operators.",
-      },
-      {
-        value: "6",
-        description: "Critical usability issues resolved before dev.",
-      },
-      {
-        value: "25+",
-        description:
-          "UI components developed with full documentation.",
-      },
-    ],
-  },
+    "1,100 patients depend on medication delivered to their door. When I joined, every delivery was tracked on paper.",
+  heroImageLabel: "Konfront healthcare logistics platform: mobile and desktop interfaces",
+  heroImage: `${basePath}/cover-delivery.png${imgV}`,
+  heroNoTopPadding: true,
+  heroDottedOverview: true,
+  heroLayout: "stacked",
+
   product:
-    "A digital platform for managing the delivery of high-cost hemophilia medications across Mexico. Desktop interface for distributors managing batches. Mobile web app for operators delivering in the field. Over 1,100 patients depending on timely, cold-chain deliveries administered intravenously at home.",
+    "A digital platform for managing the delivery of high-cost hemophilia medications across Mexico. Desktop interface for coordinators managing batches. Mobile web app for operators delivering in the field. Over 1,100 patients depending on timely, cold-chain deliveries administered intravenously at home.",
+
   coreProblem: {
     headline:
       "The existing medication delivery process was manual, slow, and error-prone.",
     description:
-      "We needed a digital solution to streamline operations, ensure traceability, and improve the experience for both patients and distributors.",
+      "Once a package left the warehouse, nobody knew where it was. We needed a digital solution to streamline operations, ensure traceability, and improve the experience for both patients and distributors.",
   },
-  designDecisions: [
-    {
-      number: 1,
-      title: "Two Products, One System: Desktop + Mobile",
-      simpleFormat: true,
-      whatWeDid:
-        "Two purpose-built products (desktop for distributors, mobile for operators) sharing one backend, so each experience could be optimized for its context.",
-      whyItMattered:
-        "Distributors manage batches at a desk with data tables and dashboards. Operators deliver in the field, outdoors, on mobile, often with poor connectivity. Same system, completely different needs.",
-      tradeoff:
-        "Two products means more design and development work. But a single responsive product would have compromised both user types. In healthcare logistics, friction translates to delays, and delays impact patients.",
-      imageLabel: "",
-    },
-    {
-      number: 2,
-      title: "Skipping Wireframes: Straight to High-Fidelity",
-      simpleFormat: true,
-      whatWeDid:
-        "A quick POC to validate the concept, then straight to high-fidelity Figma prototypes. No wireframes in between.",
-      whyItMattered:
-        "The client had never used a digital tool for this workflow. They needed to see the product to believe it was possible and to give meaningful feedback.",
-      tradeoff:
-        "Higher cost of change if the direction was wrong. Our discovery map and stakeholder sessions had already validated the flows. The risk of losing momentum with abstract wireframes was higher.",
-      imageLabel: "",
-    },
-    {
-      number: 3,
-      title: "Designing for Auditability: Every Step Traceable",
-      simpleFormat: true,
-      whatWeDid:
-        "Every screen designed for auditability: full delivery lifecycle status, incident reporting with evidence (photos, notes), and validation at handoff. Explicit paths for exceptions (wrong address, patient not home, cold-chain issues).",
-      whyItMattered:
-        "High-cost medications for hemophilia patients. If a delivery fails, there must be a clear record of what happened, when, and why. Regulatory requirements demanded full traceability.",
-      tradeoff:
-        "More validation steps mean more friction in the flow. We made each step as fast as possible (large touch targets, smart defaults, minimal typing) without removing essential checkpoints.",
-      imageLabel: "",
-    },
-  ],
+
   coreImpact: {
     headline:
-      "Replaced a fully manual, paper-based medication delivery process with a centralized digital platform.",
+      "A fully manual, paper-based process replaced with end-to-end digital traceability.",
     description:
-      "Serving 1,100+ hemophilia patients across Mexico. Enabled full delivery traceability from batch upload to patient handoff, something that didn't exist before.",
+      "1,100+ hemophilia patients across Mexico now receive medication through a documented, visible, and accountable workflow. From batch upload to patient handoff, every step is tracked.",
+    metrics: [
+      {
+        category: "Digital Adoption",
+        icon: "chart",
+        value: "90%",
+        description:
+          "of deliveries now managed digitally through the platform.",
+      },
+      {
+        category: "Efficiency",
+        icon: "calendar",
+        value: "70% less",
+        description:
+          "time spent assigning routes compared to the previous manual process.",
+      },
+      {
+        category: "Onboarding",
+        icon: "user",
+        value: "30 min",
+        description:
+          "average onboarding time for new operators, most with limited tech experience.",
+      },
+      {
+        category: "Quality Assurance",
+        icon: "check",
+        value: "6",
+        description:
+          "critical usability issues caught and resolved before a single line of code was written.",
+      },
+      {
+        category: "Design System",
+        icon: "box",
+        value: "25+",
+        description:
+          "UI components built, documented, and shared across both products.",
+      },
+    ],
   },
+
+  features: narrativeSections,
+  featuresSectionLabel: "",
+  featuresSectionTitle: "How I thought through it",
+  featuresSectionDescription: "",
+
+  designDecisions: [],
 };
 
 export default function KonfrontCaseStudy() {

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:yurikim.co)",
+      "WebFetch(domain:web.archive.org)",
+      "Bash(npx next build:*)",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}

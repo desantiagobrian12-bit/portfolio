@@ -19,6 +19,7 @@ type CaseStudy = {
   imageContain?: boolean;
   imageClean?: boolean;
   imageWide?: boolean;
+  imageBleedRight?: boolean;
 };
 
 const caseStudies: CaseStudy[] = [
@@ -34,6 +35,10 @@ const caseStudies: CaseStudy[] = [
     mobileImage: null,
     bg: "bg-[#171717]",
     dark: true,
+    imageContain: true,
+    imageClean: true,
+    imageWide: true,
+    imageBleedRight: true,
   },
   {
     company: "Konfront",
@@ -43,13 +48,14 @@ const caseStudies: CaseStudy[] = [
     tags: ["Healthcare", "B2B", "Logistics"],
     metric: "1,100+ patients",
     href: "/case-studies/konfront-healthcare",
-    image: "/images/case-studies/konfront/case-studie-cover.png",
+    image: "/images/case-studies/konfront/Konfront-case-study-card.png?v=4",
     mobileImage: null,
     bg: "bg-[#CFDEF3]",
     dark: false,
     imageContain: true,
     imageClean: true,
     imageWide: true,
+    imageBleedRight: true,
   },
   {
     company: "Wizeline",
@@ -59,10 +65,14 @@ const caseStudies: CaseStudy[] = [
     tags: ["LXD", "Accessibility", "IA"],
     metric: "NPS 9/10",
     href: "/case-studies/wizeline-learning",
-    image: "/images/case-studies/wizeline/cover-wizeline.png",
+    image: "/images/case-studies/wizeline/cover-wizeline.png?v=3",
     mobileImage: null,
     bg: "bg-[#152A5E]",
     dark: true,
+    imageContain: true,
+    imageClean: true,
+    imageWide: true,
+    imageBleedRight: true,
   },
 ];
 
@@ -183,7 +193,7 @@ export default function CaseStudies() {
                     </div>
 
                     {/* Image */}
-                    <div className={`relative flex items-end justify-center pb-0 pt-4 ${study.imageWide ? "px-3 md:px-4 md:pt-6" : "px-6 md:px-4 md:pt-8"} ${study.mobileImage ? "overflow-visible" : "overflow-hidden"}`}>
+                    <div className={`relative flex items-end pb-0 pt-4 ${study.imageBleedRight ? "justify-start" : "justify-center"} ${study.imageWide ? "px-3 md:px-4 md:pt-6" : "px-6 md:px-4 md:pt-8"} ${study.mobileImage || study.imageBleedRight ? "overflow-visible" : "overflow-hidden"}`}>
                       {study.mobileImage ? (
                         <div className="relative w-full">
                           {/* Desktop screenshot */}
@@ -193,6 +203,8 @@ export default function CaseStudies() {
                               alt={`${study.title} desktop screenshot`}
                               width={800}
                               height={520}
+                              sizes="(max-width: 768px) 100vw, 800px"
+                              quality={90}
                               className="block h-auto w-full object-cover object-top"
                               unoptimized={!study.dark}
                             />
@@ -205,6 +217,8 @@ export default function CaseStudies() {
                                 alt={`${study.title} mobile screenshot`}
                                 width={300}
                                 height={600}
+                                sizes="140px"
+                                quality={90}
                                 className="block h-auto w-full object-cover"
                                 unoptimized={!study.dark}
                               />
@@ -213,14 +227,17 @@ export default function CaseStudies() {
                         </div>
                       ) : (
                         <div
-                          className={`relative w-full overflow-hidden ${study.bg} ${study.imageClean ? "" : "rounded-t-xl shadow-2xl"}`}
+                          className={`relative ${study.imageBleedRight ? "left-0 w-[110%] min-w-[110%] overflow-visible" : "w-full overflow-hidden"} ${study.dark ? study.bg : "bg-white"} overflow-hidden ${study.imageClean ? "rounded-xl" : "rounded-t-xl shadow-2xl"}`}
                         >
                           <Image
                             src={study.image}
                             alt={`${study.title} product screenshot`}
                             width={800}
                             height={520}
+                            sizes="(max-width: 768px) 100vw, 800px"
+                            quality={90}
                             className={`block h-auto w-full object-top ${study.imageContain ? "object-contain" : "object-cover"}`}
+                            style={{ color: "transparent", borderRadius: "8px" }}
                             unoptimized={!study.dark}
                           />
                         </div>

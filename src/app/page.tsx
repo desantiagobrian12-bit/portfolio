@@ -2,7 +2,6 @@ import Hero from "@/components/sections/Hero";
 import CaseStudies from "@/components/sections/CaseStudies";
 import WhatSetsApart from "@/components/sections/WhatSetsApart";
 import HowIUseAI from "@/components/sections/HowIUseAI";
-import AboutMe from "@/components/sections/AboutMe";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -12,7 +11,6 @@ export default function Home() {
       <CaseStudies />
       <WhatSetsApart />
       <HowIUseAI />
-      <AboutMe />
       <Contact />
     </main>
   );

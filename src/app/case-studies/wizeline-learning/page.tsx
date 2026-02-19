@@ -8,140 +8,105 @@ import type {
 export const metadata: Metadata = {
   title: "Wizeline Learning Experience Platform | Brian De Santiago",
   description:
-    "Case study on redesigning a learning platform with microlearning, gamification, and persona-driven IA.",
+    "How I rethought a learning platform so people actually finished. Narrative case study on structure, motivation, and listening.",
 };
 
 const basePath = "/images/case-studies/wizeline";
 
-const designProcessSteps: CaseStudyFeature[] = [
+// Narrative sections: insight-driven, story tone. Not process phases.
+const narrativeSections: CaseStudyFeature[] = [
   {
-    title: "Empathize",
+    title: "The real problem wasn't the UI",
     description:
-      "To understand learners' needs and challenges, we ran research through multiple channels. We interviewed LXD experts for industry insights and spoke with potential users to identify common learning obstacles.",
-    descriptionAfterImage:
-      "We analyzed user interactions and behavioral data to see how people engaged with the platform, where they got stuck, and what they needed. Those insights guided the design of an improved learning experience.",
-    image: `${basePath}/empathize.png`,
+      "I went in assuming we'd tidy up the experience and make it clearer. What came out of research was different. People weren't dropping off because they didn't care. They were dropping off because the content felt overwhelming and there was no visible progress. Talking to LXD experts and potential learners made that obvious. So the design problem shifted: from \"improve the shell\" to \"restructure how people move through this and see that they're getting somewhere.\"",
+    image: `${basePath}/Learning-experience.png`,
   },
   {
-    title: "Define",
+    title: "Betting on small steps",
     description:
-      "We analyzed the research and defined clear problem statements. We studied LXD principles and turned key findings into user personas: diverse learners with different needs, expectations, and learning styles. We also identified major challenges: low engagement, weak assessments, and unclear content organization. This set the foundation for the rest of the design.",
-    image: `${basePath}/define.png`,
+      "That's why we went with microlearning. Not as a buzzword but because it matched what we heard. People wanted to finish something in a coffee break and feel they'd moved. So we broke content into short modules (5–10 min) with clear progress. The trade-off was more pieces to manage and a risk of feeling fragmented. We leaned on clear learning paths so it still felt like one journey. The big bet was on structure, not just UI.",
+    image: `${basePath}/ideate-1.png`,
   },
   {
-    title: "Ideate",
+    title: "Motivation without the game",
     description:
-      "We explored structure, motivation, and information architecture through moodboards and sketches.",
+      "Getting people to start was one problem. Getting them to come back and finish was another. We added progress indicators, badges, and streaks. We deliberately skipped leaderboards. In a work context, competition can twist the incentive. What we wanted was \"you're making progress\" without \"you're being ranked.\" Testing bore that out. People responded to their own progress; the NPS we got (9/10) reflected that.",
+    image: `${basePath}/Prototype-3.png`,
+  },
+  {
+    title: "One list for everyone meant for no one",
+    description:
+      "The old platform was a single list. A new engineer and a senior PM saw the same homepage. So we redesigned around personas and learning paths. The idea was simple: \"Here's your path, here's where you are, here's what's next.\" That made the IA harder to build and maintain, but the payoff was that the product felt built for the person in front of it.",
     images: [
-      {
-        src: `${basePath}/ideate-1.png`,
-        alt: "Visual patterns moodboard",
-        caption:
-          "A moodboard of visual patterns highlighted key design elements from similar products and helped us analyze best practices and gain inspiration from industry leaders.",
-      },
-      {
-        src: `${basePath}/ideate-2.png`,
-        alt: "Solutions moodboard",
-        caption:
-          "A moodboard of solutions showcased common features in successful learning platforms and why they work.",
-      },
-      {
-        src: `${basePath}/ideate-3.png`,
-        alt: "Design sketches",
-        caption:
-          "Thanks to these moodboards, we sketched potential design solutions so our ideas stayed backed by research and aligned with user needs.",
-      },
+      { src: `${basePath}/prototype-1.png`, alt: "Learning platform prototype" },
+      { src: `${basePath}/prototype-2.png`, alt: "Module and progress UI" },
     ],
   },
   {
-    title: "Prototype",
+    title: "What testing proved",
     description:
-      "We turned ideation into tangible prototypes. Wireframes tested the new content structure and interactive elements: quizzes, discussion forums, and video-based learning modules. We built a functional prototype to demonstrate the experience and validate design decisions before full-scale development, so user feedback could shape the product.",
-    images: [
-      { src: `${basePath}/prototype-1.png`, alt: "Prototype screen 1" },
-      { src: `${basePath}/prototype-2.png`, alt: "Prototype screen 2" },
-      { src: `${basePath}/Prototype-3.png`, alt: "Prototype screen 3" },
-    ],
-  },
-  {
-    title: "Test",
-    description:
-      "We ran usability testing so users could try the prototype and share feedback on intuitiveness, accessibility, and effectiveness. We measured impact with an NPS test: 15 users gave us a score of 9. Their feedback pointed to concrete improvements, which we implemented before final release.",
-    nps: { score: 9, max: 10, label: "NPS" },
+      "We ran usability testing with 15 users before release. NPS 9. Their feedback pushed specific changes. More importantly, it confirmed that the structure and the motivation layer were doing the work. The takeaway for me: the biggest leverage wasn't a flashy UI. It was how we structured the experience and how we listened.",
   },
 ];
 
 const caseStudyData: CaseStudyData = {
+  layoutVariant: "flow",
+  heroOverviewCompact: true,
+  heroNoTopPadding: true,
+  heroDottedOverview: true,
+  heroLayout: "stacked",
   overview: {
     company: "Wizeline",
     role: "UX Designer",
     timeline: "Feb 2024 – Jun 2024",
     team: "Cross-functional team",
     platform: "Web application (Wizeline Academy)",
+    myContribution: "UX design\nResearch\nIA\nEnd-to-end design",
   },
   tags: ["Learning", "Accessibility", "Information Architecture"],
   title: "Learning Experience Platform",
   subtitle:
-    "Redesigning how people learn. From fragmented courses to structured, engaging experiences.",
+    "People were starting courses. Almost nobody was finishing them.",
   heroImageLabel: "Wizeline Academy learning platform",
-  heroImage: `${basePath}/cover-wizeline.png`,
-  features: designProcessSteps,
+  heroImage: `${basePath}/cover-wizeline.png?v=3`,
+  features: narrativeSections,
   featuresSectionLabel: "",
-  featuresSectionTitle: "The design process",
+  featuresSectionTitle: "How I thought through it",
   featuresSectionDescription: "",
-  designDecisionsAsCards: true,
-  designDecisionsSectionTitle: "The key decisions",
   product:
-    "Wizeline Academy is the company's online learning platform. We redesigned it with LXD: clearer structure, microlearning, and paths that fit how people learn.",
+    "Wizeline Academy was the company's internal learning platform. I came in to help redesign it. The ask wasn't \"make it prettier.\" It was to turn a scattered set of courses into something people actually finished and came back to. That meant rethinking how content was structured, how progress showed up, and who the experience was for.",
   coreProblem: {
     headline:
-      "People weren't finishing courses. The platform wasn't built around how people learn.",
+      "People weren't finishing. The platform wasn't built around how people learn.",
     description:
-      "We needed a learning experience, not just a course list. Content was fragmented, there were no paths or sense of progress.",
+      "When I looked at the data and talked to learners, the same pattern showed up. Courses were long and dense. There was no sense of \"I'm almost there.\" No paths tailored to role or goal. So the real question wasn't how to polish the UI. It was how to design something that matched how people learn and gave them a reason to come back.",
   },
-  designDecisions: [
-    {
-      number: 1,
-      title: "Microlearning over long-form modules",
-      simpleFormat: true,
-      whatWeDid:
-        "We broke content into small, digestible modules (5–10 min each) with clear progress markers instead of long, dense modules.",
-      whyItMattered:
-        "Users dropped off partway through long modules. Research showed people learn better in small doses with a sense of progress.",
-      tradeoff:
-        "More modules to manage and a risk of feeling fragmented. We invested in content structure and clear paths so it stayed coherent.",
-      imageLabel: "",
-    },
-    {
-      number: 2,
-      title: "Gamification as motivation architecture",
-      simpleFormat: true,
-      whatWeDid:
-        "We added progress indicators, achievement badges, and streak tracking. No leaderboards or competition, to keep it professional.",
-      whyItMattered:
-        "Getting people to start was one thing. Getting them to come back and finish required a motivation system beyond willpower.",
-      tradeoff:
-        "Without leaderboards we gave up some viral pull. Users responded well to personal progress; NPS 9/10 confirmed the approach.",
-      imageLabel: "",
-    },
-    {
-      number: 3,
-      title: "Persona-driven information architecture",
-      simpleFormat: true,
-      whatWeDid:
-        "We redesigned navigation around learning paths and personas. Different roles and goals got tailored entry points and content hierarchy.",
-      whyItMattered:
-        "A flat course list worked for nobody. A new engineer and a senior PM saw the same homepage. We made the platform feel built for each user.",
-      tradeoff:
-        "Personalized IA is harder to build and maintain. Adding a course means placing it in multiple paths. The payoff was relevance.",
-      imageLabel: "",
-    },
-  ],
   coreImpact: {
-    headline: "NPS 9/10 from usability testing.",
+    headline: "We shipped a learning experience that people could follow and finish.",
     description:
-      "We delivered microlearning, selective gamification, and persona-driven IA. Tested with 15 users. The platform became a scalable learning framework instead of a fragmented course list.",
+      "Microlearning, selective gamification, and persona-driven paths replaced the flat course list. We tested with 15 users and landed at NPS 9. The platform became something the team could evolve instead of a pile of courses. What I took away: user feedback at every step wasn't optional. And the real design problem was structure, not pixels.",
+    metrics: [
+      {
+        category: "User testing",
+        icon: "check",
+        value: "9/10",
+        description: "NPS from usability testing with 15 users.",
+      },
+      {
+        category: "Users tested",
+        icon: "user",
+        value: "15",
+        description: "users in usability testing before release.",
+      },
+      {
+        category: "Pillars",
+        icon: "box",
+        value: "3",
+        description: "microlearning, selective gamification, persona-driven IA.",
+      },
+    ],
   },
+  designDecisions: [],
 };
 
 export default function WizelineLearningCaseStudy() {

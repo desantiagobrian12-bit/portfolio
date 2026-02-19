@@ -5,7 +5,13 @@ const nextConfig: NextConfig = {
     localPatterns: [
       {
         pathname: "/images/**",
-        // omit search so query strings (e.g. ?v=2 for cache busting) are allowed
+      },
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "is1-ssl.mzstatic.com",
+        pathname: "/**",
       },
     ],
   },

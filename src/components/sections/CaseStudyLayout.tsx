@@ -44,6 +44,8 @@ export interface CaseStudyFeatureSubStep {
   title: string;
   description: string;
   image?: string;
+  /** Multiple images (e.g. design system: palette, tokens, components). */
+  images?: { src: string; alt: string; caption?: string }[];
 }
 
 export interface CaseStudyFeature {
@@ -64,18 +66,34 @@ export interface CaseStudyFeature {
 }
 
 export interface CaseStudyData {
+  /** "flow" = split hero, linear body, titles as dividers, centered content */
+  layoutVariant?: "flow" | "default";
   overview: {
     company: string;
     role: string;
     timeline: string;
     team: string;
     platform: string;
+    /** Shown when heroOverviewCompact. Use \\n for multiple lines. */
+    myContribution?: string;
     confidentiality?: string;
   };
   tags: string[];
   title: string;
   subtitle: string;
+  /** When true (flow layout): hide back link, subtitle, tags; show Role|Duration, Team|My contribution */
+  heroOverviewCompact?: boolean;
   heroImageLabel: string;
+  /** Remove top padding from hero (for flow layout under fixed header) */
+  heroNoTopPadding?: boolean;
+  /** Optional background color for hero image area (e.g. light blue for healthcare). Tailwind class or arbitrary value. */
+  heroImageRightBg?: string;
+  /** When true, use dotted separator between title and overview in hero */
+  heroDottedOverview?: boolean;
+  /** When true, center "The Product" section label and text */
+  productSectionCentered?: boolean;
+  /** "stacked" = image on top, text below, same margins as body (max-w-3xl px-6) */
+  heroLayout?: "split" | "stacked";
   product: string;
   coreProblem: {
     headline: string;
@@ -109,6 +127,8 @@ export interface CaseStudyData {
   coreImpact: {
     headline: string;
     description: string;
+    /** Optional metrics for flow layout */
+    metrics?: { category: string; icon?: string; value: string; description: string }[];
   };
   /** Optional video section (e.g. prototype walkthrough). Rendered after Key Features. */
   videoSection?: {
@@ -138,6 +158,60 @@ export interface CaseStudyData {
 const viewportOnce = { once: true, margin: "-100px" };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
+
+const CORE_IMPACT_GREEN = "#3B9427";
+
+function CoreImpactMetricIcon({ icon }: { icon?: string }) {
+  const cn = "shrink-0 h-5 w-5";
+  if (icon === "chart")
+    return (
+      <svg className={cn} viewBox="0 0 24 24" fill="none" stroke={CORE_IMPACT_GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 3v18h18" />
+        <path d="M18 17V9" />
+        <path d="M13 17V5" />
+        <path d="M8 17v-3" />
+      </svg>
+    );
+  if (icon === "calendar")
+    return (
+      <svg className={cn} viewBox="0 0 24 24" fill="none" stroke={CORE_IMPACT_GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+        <line x1="16" x2="16" y1="2" y2="6" />
+        <line x1="8" x2="8" y1="2" y2="6" />
+        <line x1="3" x2="21" y1="10" y2="10" />
+      </svg>
+    );
+  if (icon === "user")
+    return (
+      <svg className={cn} viewBox="0 0 24 24" fill="none" stroke={CORE_IMPACT_GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    );
+  if (icon === "check")
+    return (
+      <svg className={cn} viewBox="0 0 24 24" fill="none" stroke={CORE_IMPACT_GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
+    );
+  if (icon === "box")
+    return (
+      <svg className={cn} viewBox="0 0 24 24" fill="none" stroke={CORE_IMPACT_GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+        <line x1="12" x2="12" y1="22.08" y2="12" />
+      </svg>
+    );
+  if (icon === "dollar")
+    return (
+      <svg className={cn} viewBox="0 0 24 24" fill="none" stroke={CORE_IMPACT_GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="12" x2="12" y1="2" y2="22" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+    );
+  return null;
+}
 
 function ImagePlaceholder({
   label,
@@ -643,9 +717,520 @@ function CTASliderSection({
   );
 }
 
+// ─── Flow case study (split hero, linear body, titles as dividers) ────────────
+
+function FlowCaseStudy({ data }: { data: CaseStudyData }) {
+  const heroCompact = data.heroOverviewCompact === true;
+  const heroDotted = data.heroDottedOverview === true;
+  const productCentered = data.productSectionCentered === true;
+  const heroStacked = data.heroLayout === "stacked";
+  /* Sticky navbar offset (~72px) when heroNoTopPadding; hero starts right below navbar */
+  const heroPt = data.heroNoTopPadding ? "pt-[72px] pb-0 md:pb-2" : "pt-28 pb-16 md:pt-36 md:pb-20";
+
+  return (
+    <main>
+      {/* Hero: stacked = image top + text below (same margins as body); else split layout */}
+      <section
+        className={`relative overflow-visible bg-white ${heroPt}`}
+      >
+        {heroStacked ? (
+          <div className="mx-auto max-w-3xl px-6">
+            {/* Image at top — same width as other case study images (88vw / 64rem), not full bleed */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative left-1/2 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-card"
+            >
+              {data.heroImage ? (
+                <Image
+                  src={data.heroImage}
+                  alt={data.heroImageLabel}
+                  width={1200}
+                  height={680}
+                  className="h-auto w-full object-contain object-top"
+                  priority
+                />
+              ) : (
+                <div className="flex min-h-[200px] items-center justify-center border-2 border-dashed border-neutral-300 bg-neutral-50">
+                  <span className="text-sm text-neutral-500">{data.heroImageLabel}</span>
+                </div>
+              )}
+            </motion.div>
+
+            {/* Text below image */}
+            <div className="mt-8 md:mt-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <p className="text-sm font-semibold text-accent">
+                  {data.overview.company}
+                </p>
+                <h1 className="mt-2 text-3xl font-semibold leading-tight tracking-tight text-primary md:text-4xl">
+                  {data.title}
+                </h1>
+              </motion.div>
+
+              {/* Project details: two columns (Role | Team left, Duration | My contribution right), dividers between rows */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-10 grid grid-cols-1 gap-x-12 md:grid-cols-2"
+              >
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-secondary">
+                    Role
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-primary">
+                    {data.overview.role}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-secondary">
+                    Duration
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-primary">
+                    {data.overview.timeline}
+                  </p>
+                </div>
+                <div className="border-t border-border pt-6 mt-6">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-secondary">
+                    Team
+                  </p>
+                  <p className="mt-2 text-sm font-medium leading-relaxed text-primary whitespace-pre-line">
+                    {data.overview.team}
+                  </p>
+                </div>
+                <div className="border-t border-border pt-6 mt-6">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-secondary">
+                    My contribution
+                  </p>
+                  <p className="mt-2 text-sm font-medium leading-relaxed text-primary whitespace-pre-line">
+                    {data.overview.myContribution ?? data.overview.platform}
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        ) : (
+        <div className="flex w-full flex-col gap-4 overflow-x-hidden min-[1440px]:grid min-[1440px]:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] min-[1440px]:items-center min-[1440px]:overflow-visible min-[1440px]:gap-0">
+          {/* Text block — below image on mobile/tablet, left column on desktop */}
+          <div className="order-2 flex flex-col justify-center pl-8 pr-6 min-[1440px]:order-1 min-[1440px]:pl-20 min-[1440px]:pr-10 min-[1440px]:pt-0">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-sm font-medium tracking-wide text-secondary">
+                {data.overview.company}
+              </p>
+              <h1 className="mt-2 text-2xl font-semibold leading-tight tracking-tight text-primary md:text-3xl min-[1440px]:text-3xl">
+                {data.title}
+              </h1>
+            </motion.div>
+
+            {/* Overview: Role | Duration, Team | My contribution */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className={`mt-10 grid grid-cols-2 gap-x-12 gap-y-6 pt-8 ${
+                heroDotted
+                  ? "border-t border-dotted border-border"
+                  : "border-t border-border"
+              }`}
+            >
+              {heroCompact ? (
+                <>
+                  <div>
+                    <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                      Role
+                    </p>
+                    <p className="mt-2.5 text-base font-medium text-primary min-[1440px]:text-lg">
+                      {data.overview.role}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                      Duration
+                    </p>
+                    <p className="mt-2.5 text-base font-medium text-primary min-[1440px]:text-lg">
+                      {data.overview.timeline}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                      Team
+                    </p>
+                    <p className="mt-2.5 text-base font-medium leading-relaxed text-primary whitespace-pre-line min-[1440px]:text-lg">
+                      {data.overview.team}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                      My contribution
+                    </p>
+                    <p className="mt-2.5 text-base font-medium leading-relaxed text-primary whitespace-pre-line min-[1440px]:text-lg">
+                      {data.overview.myContribution ?? data.overview.platform}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                [
+                  { label: "Role", value: data.overview.role },
+                  { label: "Duration", value: data.overview.timeline },
+                  { label: "Team", value: data.overview.team },
+                  { label: "Platform", value: data.overview.platform },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-secondary">
+                      {item.label}
+                    </p>
+                    <p className="mt-1.5 text-sm font-medium text-primary">
+                      {item.value}
+                    </p>
+                  </div>
+                ))
+              )}
+            </motion.div>
+          </div>
+
+          {/* Hero image — full-bleed on mobile/tablet; right column on desktop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className={`order-1 relative left-1/2 flex min-h-[220px] w-screen min-w-0 -translate-x-1/2 items-center justify-center min-[1440px]:left-0 min-[1440px]:order-2 min-[1440px]:w-full min-[1440px]:translate-x-0 min-[1440px]:justify-end min-[1440px]:pr-0 ${
+              data.heroImageRightBg?.startsWith("bg-") ? data.heroImageRightBg : ""
+            }`}
+            style={
+              data.heroImageRightBg?.startsWith("#") ||
+              data.heroImageRightBg?.startsWith("rgb")
+                ? { backgroundColor: data.heroImageRightBg }
+                : undefined
+            }
+          >
+            {data.heroImage ? (
+              <Image
+                src={data.heroImage}
+                alt={data.heroImageLabel}
+                width={1920}
+                height={1080}
+                className="h-auto max-h-[400px] w-full min-w-0 object-cover object-center min-[1440px]:max-h-[680px] min-[1440px]:max-w-[1000px] min-[1440px]:object-contain min-[1440px]:object-right"
+                priority
+              />
+            ) : (
+              <div className="flex min-h-[120px] items-center justify-center border-2 border-dashed border-neutral-300 bg-neutral-50 min-[1440px]:min-h-[380px]">
+                <span className="text-sm text-neutral-500">{data.heroImageLabel}</span>
+              </div>
+            )}
+          </motion.div>
+        </div>
+        )}
+      </section>
+
+      {/* Body: linear flow, centered. Solid bg to hide body's dotted canvas in content sections. */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-3xl overflow-visible px-6 pb-24 pt-10 md:pt-12">
+        {/* Product */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.5 }}
+          className={productCentered ? "text-center" : ""}
+        >
+          <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+            The Product
+          </p>
+          <p
+            className={`mt-4 text-base leading-relaxed text-secondary md:text-lg ${
+              productCentered ? "mx-auto max-w-2xl" : ""
+            }`}
+          >
+            {data.product}
+          </p>
+        </motion.div>
+
+        {/* Core Problem */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.5 }}
+          className="pt-16 md:pt-20"
+        >
+          <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+            The Core Problem
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold leading-snug text-primary md:text-3xl">
+            {data.coreProblem.headline}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-secondary md:text-lg">
+            {data.coreProblem.description}
+          </p>
+        </motion.div>
+
+        {/* Core Impact */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.5 }}
+          className="pt-16 md:pt-20"
+        >
+          <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+            The Core Impact
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold leading-snug text-primary md:text-3xl">
+            {data.coreImpact.headline}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-secondary md:text-lg">
+            {data.coreImpact.description}
+          </p>
+          {data.coreImpact.metrics && data.coreImpact.metrics.length > 0 && (
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {data.coreImpact.metrics.map((m, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl border border-border bg-white p-4"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#3B9427]/10">
+                      <CoreImpactMetricIcon icon={m.icon} />
+                    </div>
+                    <span
+                      className="text-xs font-bold uppercase tracking-wider"
+                      style={{ color: "#3B9427" }}
+                    >
+                      {m.category}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xl font-semibold leading-tight text-primary md:text-2xl">
+                    {m.value}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-secondary">
+                    {m.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+
+        {/* Features / narrative sections */}
+        {data.features && data.features.length > 0 && (
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5 }}
+              className="pt-16 md:pt-20"
+            >
+              {data.featuresSectionLabel && (
+                <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                  {data.featuresSectionLabel}
+                </p>
+              )}
+              <h2 className={`text-2xl font-semibold leading-snug text-primary md:text-3xl ${data.featuresSectionLabel ? "mt-2" : "mt-0"}`}>
+                {data.featuresSectionTitle ?? "Key features"}
+              </h2>
+              {data.featuresSectionDescription && (
+                <p className="mt-4 text-base leading-relaxed text-secondary md:text-lg">
+                  {data.featuresSectionDescription}
+                </p>
+              )}
+            </motion.div>
+            {data.features.map((feature, idx) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportOnce}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="pt-12 md:pt-16"
+              >
+                <h3 className="text-xl font-semibold leading-snug text-primary md:text-2xl">
+                  {feature.title}
+                </h3>
+                <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-secondary">
+                  {feature.description}
+                </p>
+                {feature.video && (
+                  <div className="relative left-1/2 mt-6 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-card">
+                    <video
+                      src={feature.video}
+                      controls
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="h-auto w-full"
+                      preload="metadata"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+                {feature.image && (
+                  <div className="relative left-1/2 mt-6 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white">
+                    <Image
+                      src={feature.image}
+                      alt={feature.title}
+                      width={1200}
+                      height={680}
+                      className="h-auto w-full object-contain"
+                    />
+                  </div>
+                )}
+                {feature.images && feature.images.length > 0 && (
+                  <div className="mt-6 space-y-6">
+                    {feature.images.map((img) => (
+                      <div key={img.src}>
+                        <div className="relative left-1/2 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white">
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            width={1200}
+                            height={680}
+                            className="h-auto w-full object-contain"
+                          />
+                        </div>
+                        {"caption" in img && img.caption && (
+                          <p className="mt-3 text-sm leading-relaxed text-secondary">
+                            {img.caption}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {feature.subSteps && feature.subSteps.length > 0 && (
+                  <div className="mt-8 space-y-6 border-t border-border pt-8">
+                    {feature.subSteps.map((sub) => (
+                      <div key={sub.title}>
+                        <h4 className="text-base font-semibold text-primary md:text-lg">
+                          {sub.title}
+                        </h4>
+                        <p className="mt-2 text-base leading-relaxed text-secondary">
+                          {sub.description}
+                        </p>
+                        {sub.image && (
+                          <div className="relative left-1/2 mt-4 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white">
+                            <Image
+                              src={sub.image}
+                              alt={sub.title}
+                              width={1200}
+                              height={680}
+                              className="h-auto w-full object-contain"
+                            />
+                          </div>
+                        )}
+                        {sub.images && sub.images.length > 0 && (
+                          <div className="relative left-1/2 mt-4 w-[min(88vw,64rem)] -translate-x-1/2 grid grid-cols-2 gap-4 md:gap-5">
+                            {sub.images.map((img) => (
+                              <div key={img.src} className="overflow-hidden rounded-xl bg-white">
+                                <Image
+                                  src={img.src}
+                                  alt={img.alt}
+                                  width={1200}
+                                  height={680}
+                                  className="h-auto w-full object-contain"
+                                />
+                                {img.caption && (
+                                  <p className="mt-2 text-center text-sm text-secondary">{img.caption}</p>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </>
+        )}
+
+        {/* Key decisions (flow layout): same container, same margins */}
+        {data.designDecisionsAsCards &&
+          data.designDecisions &&
+          data.designDecisions.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.5 }}
+              className="pt-16 md:pt-20"
+            >
+              <p className="text-sm font-medium uppercase tracking-widest text-secondary">
+                Design decisions
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold leading-snug text-primary md:text-3xl">
+                {data.designDecisionsSectionTitle ?? "The key decisions"}
+              </h2>
+              <div className="mt-8 grid gap-6 sm:grid-cols-2">
+                {data.designDecisions.map((dd) => (
+                  <div
+                    key={dd.number}
+                    className="rounded-xl border border-border bg-white p-5"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-sm font-semibold text-primary">
+                        {String(dd.number).padStart(2, "0")}
+                      </span>
+                      <h3 className="text-lg font-semibold text-primary">
+                        {dd.title}
+                      </h3>
+                    </div>
+                    {dd.whatWeDid && (
+                      <>
+                        <p className="mt-4 text-[10px] font-medium uppercase tracking-wider text-secondary">
+                          What I did
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-primary">
+                          {dd.whatWeDid}
+                        </p>
+                      </>
+                    )}
+                    <p className="mt-3 text-[10px] font-medium uppercase tracking-wider text-secondary">
+                      Why
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-secondary">
+                      {dd.whyItMattered}
+                    </p>
+                    <p className="mt-3 text-[10px] font-medium uppercase tracking-wider text-secondary">
+                      Trade-off
+                    </p>
+                    <p className="mt-1 border-l-2 border-accent/30 pl-3 text-sm leading-relaxed text-secondary">
+                      {dd.tradeoff}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+        </div>
+      </section>
+
+      <CaseStudyNav />
+    </main>
+  );
+}
+
 // ─── Main layout component ───────────────────────────────────────────────────
 
 export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
+  if (data.layoutVariant === "flow") {
+    return <FlowCaseStudy data={data} />;
+  }
+
   return (
     <main>
       {/* ========================= HERO ========================= */}
@@ -960,6 +1545,24 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                                 height={680}
                                 className="h-auto w-full object-contain"
                               />
+                            </div>
+                          )}
+                          {sub.images && sub.images.length > 0 && (
+                            <div className="mt-4 grid grid-cols-2 gap-4 md:gap-5">
+                              {sub.images.map((img) => (
+                                <div key={img.src} className="overflow-hidden rounded-xl bg-white">
+                                  <Image
+                                    src={img.src}
+                                    alt={img.alt}
+                                    width={1200}
+                                    height={680}
+                                    className="h-auto w-full object-contain"
+                                  />
+                                  {img.caption && (
+                                    <p className="mt-2 text-center text-sm text-secondary">{img.caption}</p>
+                                  )}
+                                </div>
+                              ))}
                             </div>
                           )}
                         </div>
