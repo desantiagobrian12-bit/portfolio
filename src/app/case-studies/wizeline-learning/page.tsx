@@ -68,7 +68,7 @@ const caseStudyData: CaseStudyData = {
   subtitle:
     "People were starting courses. Almost nobody was finishing them.",
   heroImageLabel: "Wizeline Academy learning platform",
-  heroImage: `${basePath}/cover-wizeline.png?v=3`,
+  heroImage: `${basePath}/Cover-card-wizeline.png`,
   features: narrativeSections,
   featuresSectionLabel: "",
   featuresSectionTitle: "How I thought through it",
