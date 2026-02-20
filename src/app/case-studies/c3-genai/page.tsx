@@ -115,6 +115,20 @@ const caseStudyData: CaseStudyData = {
         description:
           "products in the C3 AI Suite adopted the design patterns from this work.",
       },
+      {
+        category: "Time to answer",
+        icon: "calendar",
+        value: "Minutes, not hours",
+        description:
+          "non-technical users get answers from the AI in minutes instead of waiting for manual reports or someone else to run the query.",
+      },
+      {
+        category: "Transparency",
+        icon: "check",
+        value: "Visible",
+        description:
+          "reasoning and data sources in-context, so users could verify outputs instead of trusting blindly.",
+      },
     ],
   },
 };

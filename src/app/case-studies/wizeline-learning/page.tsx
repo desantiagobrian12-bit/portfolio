@@ -71,7 +71,7 @@ const caseStudyData: CaseStudyData = {
   heroImage: `${basePath}/Cover-card-wizeline.png`,
   features: narrativeSections,
   featuresSectionLabel: "",
-  featuresSectionTitle: "How I thought through it",
+  featuresSectionTitle: "How I thought through the experience",
   featuresSectionDescription: "",
   product:
     "Wizeline Academy was the company's internal learning platform. I came in to help redesign it. The ask wasn't \"make it prettier.\" It was to turn a scattered set of courses into something people actually finished and came back to. That meant rethinking how content was structured, how progress showed up, and who the experience was for.",

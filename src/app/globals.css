@@ -20,6 +20,12 @@ body {
   background-size: 24px 24px;
 }
 
+/* Hide default cursor on non-touch devices — custom cursor takes over */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
 
 ::selection {
   background-color: #3B82F6;

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const basePath = "/images/case-studies/konfront";
-const imgV = "?v=12"; // bump when you replace image files so the page shows the new ones
+const imgV = "?v=16"; // bump when you replace image files so the page shows the new ones
 
 // ─── Narrative sections ─────────────────────────────────────────────────────
 //
@@ -100,7 +100,7 @@ const caseStudyData: CaseStudyData = {
   subtitle:
     "1,100 patients depend on medication delivered to their door. When I joined, every delivery was tracked on paper.",
   heroImageLabel: "Konfront healthcare logistics platform: mobile and desktop interfaces",
-  heroImage: `${basePath}/cover-delivery.png${imgV}`,
+  heroImage: `${basePath}/Cover-hero-konfront.png${imgV}`,
   heroNoTopPadding: true,
   heroDottedOverview: true,
   heroLayout: "stacked",
@@ -161,7 +161,7 @@ const caseStudyData: CaseStudyData = {
 
   features: narrativeSections,
   featuresSectionLabel: "",
-  featuresSectionTitle: "How I thought through it",
+  featuresSectionTitle: "My approach to the design",
   featuresSectionDescription: "",
 
   designDecisions: [],

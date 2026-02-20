@@ -31,7 +31,7 @@ const caseStudies: CaseStudy[] = [
     tags: ["GenAI", "Enterprise"],
     metric: "~40% task reduction",
     href: "/case-studies/c3-genai",
-    image: "/images/case-studies/c3-genai/Cover-c3.jpg",
+    image: "/images/case-studies/c3-genai/Cover-card-c3.png",
     mobileImage: null,
     bg: "bg-[#171717]",
     dark: true,
@@ -202,9 +202,8 @@ export default function CaseStudies() {
                               src={study.image}
                               alt={`${study.title} desktop screenshot`}
                               width={800}
-                              height={520}
-                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 640px"
-                              quality={90}
+                              height={450}
+                              unoptimized
                               className="block h-auto w-full object-cover object-top"
                             />
                           </div>
@@ -216,10 +215,8 @@ export default function CaseStudies() {
                                 alt={`${study.title} mobile screenshot`}
                                 width={300}
                                 height={600}
-                                sizes="140px"
-                                quality={90}
+                                unoptimized
                                 className="block h-auto w-full object-cover"
-                                unoptimized={!study.dark}
                               />
                             </div>
                           </div>
@@ -232,9 +229,8 @@ export default function CaseStudies() {
                             src={study.image}
                             alt={`${study.title} product screenshot`}
                             width={800}
-                            height={520}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 640px"
-                            quality={90}
+                            height={450}
+                            unoptimized
                             className={`block h-auto w-full object-top ${study.imageContain ? "object-contain" : "object-cover"}`}
                             style={{ color: "transparent", borderRadius: "8px" }}
                           />

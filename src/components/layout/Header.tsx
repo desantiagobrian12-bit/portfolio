@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { RESUME_URL } from "@/lib/links";
@@ -14,6 +15,36 @@ const navLinks = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleHashClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      const hash = href.split("#")[1];
+      if (!hash) return;
+
+      // Already on homepage — scroll directly
+      if (pathname === "/") {
+        e.preventDefault();
+        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      // On another page — navigate home, then scroll after DOM settles
+      e.preventDefault();
+      router.push("/");
+      const tryScroll = (attempts = 0) => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        } else if (attempts < 20) {
+          setTimeout(() => tryScroll(attempts + 1), 100);
+        }
+      };
+      setTimeout(() => tryScroll(), 150);
+    },
+    [pathname, router]
+  );
 
   return (
     <motion.header
@@ -50,6 +81,11 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={
+                  link.href.includes("#")
+                    ? (e) => handleHashClick(e, link.href)
+                    : undefined
+                }
                 className="text-sm text-secondary transition-colors hover:text-primary"
               >
                 {link.label}
@@ -104,7 +140,10 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => {
+                      setIsMenuOpen(false);
+                      if (link.href.includes("#")) handleHashClick(e, link.href);
+                    }}
                     className="text-sm text-secondary transition-colors hover:text-primary"
                   >
                     {link.label}

@@ -746,8 +746,9 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                 <Image
                   src={data.heroImage}
                   alt={data.heroImageLabel}
-                  width={1200}
-                  height={680}
+                  width={2048}
+                  height={1152}
+                  unoptimized
                   className="h-auto w-full object-contain object-top"
                   priority
                 />
@@ -917,8 +918,9 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
               <Image
                 src={data.heroImage}
                 alt={data.heroImageLabel}
-                width={1920}
-                height={1080}
+                width={2048}
+                height={1152}
+                unoptimized
                 className="h-auto max-h-[400px] w-full min-w-0 object-cover object-center min-[1440px]:max-h-[680px] min-[1440px]:max-w-[1000px] min-[1440px]:object-contain min-[1440px]:object-right"
                 priority
               />
@@ -1081,8 +1083,9 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                     <Image
                       src={feature.image}
                       alt={feature.title}
-                      width={1200}
-                      height={680}
+                      width={2048}
+                      height={1152}
+                      unoptimized
                       className="h-auto w-full object-contain"
                     />
                   </div>
@@ -1095,8 +1098,9 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                           <Image
                             src={img.src}
                             alt={img.alt}
-                            width={1200}
-                            height={680}
+                            width={2048}
+                            height={1152}
+                            unoptimized
                             className="h-auto w-full object-contain"
                           />
                         </div>
@@ -1124,8 +1128,9 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                             <Image
                               src={sub.image}
                               alt={sub.title}
-                              width={1200}
-                              height={680}
+                              width={2048}
+                              height={1152}
+                              unoptimized
                               className="h-auto w-full object-contain"
                             />
                           </div>
@@ -1137,8 +1142,9 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                                 <Image
                                   src={img.src}
                                   alt={img.alt}
-                                  width={1200}
-                                  height={680}
+                                  width={2048}
+                                  height={1152}
+                                  unoptimized
                                   className="h-auto w-full object-contain"
                                 />
                                 {img.caption && (
@@ -1345,8 +1351,9 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                 <Image
                   src={data.heroImage}
                   alt={data.heroImageLabel}
-                  width={1200}
-                  height={680}
+                  width={2048}
+                  height={1152}
+                  unoptimized
                   className="h-auto w-full object-cover object-top"
                   priority
                 />
@@ -1493,8 +1500,9 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                       <Image
                         src={feature.image}
                         alt={feature.title}
-                        width={1200}
-                        height={680}
+                        width={2048}
+                        height={1152}
+                        unoptimized
                         className="h-auto w-full object-contain"
                       />
                     </div>
@@ -1507,8 +1515,9 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                             <Image
                               src={img.src}
                               alt={img.alt}
-                              width={1200}
-                              height={680}
+                              width={2048}
+                              height={1152}
+                              unoptimized
                               className="h-auto w-full object-contain"
                             />
                           </div>
@@ -1541,8 +1550,9 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                               <Image
                                 src={sub.image}
                                 alt={sub.title}
-                                width={1200}
-                                height={680}
+                                width={2048}
+                                height={1152}
+                                unoptimized
                                 className="h-auto w-full object-contain"
                               />
                             </div>
@@ -1554,8 +1564,9 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                                   <Image
                                     src={img.src}
                                     alt={img.alt}
-                                    width={1200}
-                                    height={680}
+                                    width={2048}
+                                    height={1152}
+                                    unoptimized
                                     className="h-auto w-full object-contain"
                                   />
                                   {img.caption && (
@@ -1977,8 +1988,9 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                   <Image
                     src={dd.image}
                     alt={dd.imageLabel}
-                    width={1200}
-                    height={680}
+                    width={2048}
+                    height={1152}
+                    unoptimized
                     className="h-auto w-full object-contain"
                   />
                 </div>
