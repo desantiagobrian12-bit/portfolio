@@ -10,7 +10,7 @@
 |-------|--------|
 | **Company** | Wizeline |
 | **Role** | UX Designer |
-| **Timeline** | Feb 2024 – Jun 2024 |
+| **Timeline** | 2024 |
 | **Team** | Cross-functional (design, LXD, product) |
 | **Platform** | Web application (Wizeline Academy, internal learning platform) |
 | **Tags** | Learning, Accessibility, Information Architecture |
@@ -33,7 +33,7 @@
 **Project details (shown in hero):**
 
 - **Role:** UX Designer  
-- **Duration:** Feb 2024 – Jun 2024  
+- **Duration:** 2024  
 - **Team:** Cross-functional team  
 - **My contribution:** UX design, research, IA, end-to-end design  
 

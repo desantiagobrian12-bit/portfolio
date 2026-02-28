@@ -88,9 +88,9 @@ const caseStudyData: CaseStudyData = {
   layoutVariant: "flow",
   heroOverviewCompact: true,
   overview: {
-    company: "Konfront",
+    company: "Logistics Platform",
     role: "Product Designer",
-    timeline: "Apr 2025 – Aug 2025",
+    timeline: "2025",
     team: "2 Designers\nDev team\nPM\nProduct adoption",
     platform: "Desktop web app + Mobile web app",
     myContribution: "UX/UI Design\nUX Research\nVisual system",

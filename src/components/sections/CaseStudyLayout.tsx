@@ -81,7 +81,7 @@ export interface CaseStudyData {
   tags: string[];
   title: string;
   subtitle: string;
-  /** When true (flow layout): hide back link, subtitle, tags; show Role|Duration, Team|My contribution */
+  /** When true (flow layout): hide back link, subtitle, tags; show Role|Year, Team|My contribution */
   heroOverviewCompact?: boolean;
   heroImageLabel: string;
   /** Remove top padding from hero (for flow layout under fixed header) */
@@ -774,7 +774,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                 </h1>
               </motion.div>
 
-              {/* Project details: two columns (Role | Team left, Duration | My contribution right), dividers between rows */}
+              {/* Project details: two columns (Role | Team left, Year | My contribution right), dividers between rows */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -791,7 +791,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                 </div>
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-secondary">
-                    Duration
+                    Year
                   </p>
                   <p className="mt-2 text-sm font-medium text-primary">
                     {data.overview.timeline}
@@ -833,7 +833,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
               </h1>
             </motion.div>
 
-            {/* Overview: Role | Duration, Team | My contribution */}
+            {/* Overview: Role | Year, Team | My contribution */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -856,7 +856,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                   </div>
                   <div>
                     <p className="text-sm font-medium uppercase tracking-widest text-secondary">
-                      Duration
+                      Year
                     </p>
                     <p className="mt-2.5 text-base font-medium text-primary min-[1440px]:text-lg">
                       {data.overview.timeline}
@@ -882,7 +882,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
               ) : (
                 [
                   { label: "Role", value: data.overview.role },
-                  { label: "Duration", value: data.overview.timeline },
+                  { label: "Year", value: data.overview.timeline },
                   { label: "Team", value: data.overview.team },
                   { label: "Platform", value: data.overview.platform },
                 ].map((item) => (

@@ -41,7 +41,7 @@ const caseStudies: CaseStudy[] = [
     imageBleedRight: true,
   },
   {
-    company: "Konfront",
+    company: "Logistics Platform",
     title: "Healthcare Logistics Platform",
     description:
       "Replacing paper-based medication delivery with full digital traceability.",
@@ -52,6 +52,23 @@ const caseStudies: CaseStudy[] = [
     mobileImage: null,
     bg: "bg-[#CFDEF3]",
     dark: false,
+    imageContain: true,
+    imageClean: true,
+    imageWide: true,
+    imageBleedRight: true,
+  },
+  {
+    company: "Trust Logistics",
+    title: "Transport Management System",
+    description:
+      "Centralizing route planning, delivery tracking, and incident reporting for last-mile logistics.",
+    tags: ["B2B", "Logistics", "TMS"],
+    metric: "Desktop + mobile app",
+    href: "/case-studies/tms",
+    image: "/images/case-studies/tms/Cover-card-tms.png",
+    mobileImage: null,
+    bg: "bg-[linear-gradient(to_bottom_right,#FF8400,#C85707)]",
+    dark: true,
     imageContain: true,
     imageClean: true,
     imageWide: true,
@@ -175,11 +192,11 @@ export default function CaseStudies() {
                       </div>
 
                       <div
-                        className={`mt-8 flex items-center gap-2 text-sm font-medium transition-colors group-hover:text-accent ${study.dark ? "text-white" : "text-[#171717]"}`}
+                        className={`mt-8 flex items-center gap-2 text-sm font-medium ${study.dark ? "text-white" : "text-[#171717]"}`}
                       >
                         <span>View case study</span>
                         <svg
-                          className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                          className="h-4 w-4"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"

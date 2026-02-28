@@ -10,7 +10,7 @@
 |-------|--------|
 | **Company** | Konfront |
 | **Role** | Product Designer |
-| **Timeline** | Apr 2025 – Aug 2025 |
+| **Timeline** | 2025 |
 | **Team** | 2 designers, developers, PMs, product adoption team |
 | **Platform** | Desktop web app (distributors), Mobile web app (last-mile operators) |
 | **Tags** | Healthcare, B2B, Logistics |
@@ -33,7 +33,7 @@
 **Project details (shown in hero):**
 
 - **Role:** Product Designer  
-- **Duration:** Apr 2025 – Aug 2025  
+- **Duration:** 2025  
 - **Team:** 2 Designers, Dev team, PM, Product adoption  
 - **My contribution:** UX/UI Design, UX Research, Visual system  
 

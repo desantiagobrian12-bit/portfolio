@@ -69,8 +69,8 @@ const caseStudyData: CaseStudyData = {
   heroLayout: "stacked",
   overview: {
     company: "C3 AI",
-    role: "Associate Product Designer",
-    timeline: "Aug 2025 – Feb 2026",
+    role: "Product Designer",
+    timeline: "2026",
     team: "PMs, engineers, design support",
     platform: "Enterprise web application (C3 AI Suite)",
     myContribution: "UX/UI for GenAI features\nDesign decisions per capability",

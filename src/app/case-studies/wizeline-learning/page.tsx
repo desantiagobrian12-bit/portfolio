@@ -58,7 +58,7 @@ const caseStudyData: CaseStudyData = {
   overview: {
     company: "Wizeline",
     role: "UX Designer",
-    timeline: "Feb 2024 – Jun 2024",
+    timeline: "2024",
     team: "Cross-functional team",
     platform: "Web application (Wizeline Academy)",
     myContribution: "UX design\nResearch\nIA\nEnd-to-end design",

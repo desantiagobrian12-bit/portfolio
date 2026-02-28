@@ -10,8 +10,13 @@ export const CASE_STUDIES_NAV = [
   },
   {
     href: "/case-studies/konfront-healthcare",
-    company: "Konfront",
+    company: "Logistics Platform",
     title: "Healthcare Logistics Platform",
+  },
+  {
+    href: "/case-studies/tms",
+    company: "Trust Logistics",
+    title: "Transport Management System",
   },
   {
     href: "/case-studies/wizeline-learning",

@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | **Company** | C3 AI |
-| **Role** | Associate Product Designer |
-| **Timeline** | Aug 2025 – Feb 2026 |
+| **Role** | Product Designer |
+| **Timeline** | 2026 |
 | **Team** | Collaborative — PMs, engineers, design support |
 | **Platform** | Enterprise web application (part of the C3 AI Suite) |
 | **Confidentiality** | All visuals are abstracted recreations |
