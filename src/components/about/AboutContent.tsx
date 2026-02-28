@@ -30,12 +30,12 @@ export default function AboutContent({
         <div className="relative z-10 mx-auto w-full max-w-5xl">
           <div className="grid items-start gap-12 md:grid-cols-2 md:gap-16">
             <motion.div {...fadeIn}>
-              <h1 className="text-3xl font-bold tracking-tight text-primary md:text-4xl lg:text-5xl">
+              <p className="text-xs font-medium uppercase tracking-wider text-secondary">
+                Definition of
+              </p>
+              <h1 className="mt-1 text-3xl font-bold tracking-tight text-primary md:text-4xl lg:text-5xl">
                 Brian De Santiago
               </h1>
-              <p className="mt-2 text-base text-secondary md:text-lg">
-                (Product Designer, Guadalajara)
-              </p>
 
               <dl className="mt-8 space-y-4 text-secondary">
                 <div>
