@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/CustomCursor";
+import CanvasEntrance from "@/components/CanvasEntrance";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${lora.variable} font-sans antialiased`}>
+        <CanvasEntrance />
         <CustomCursor />
         <Header />
         {children}

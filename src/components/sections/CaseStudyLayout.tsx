@@ -484,7 +484,27 @@ function OptionsGrid({
   );
 }
 
-// ─── Case study prev/next nav ───────────────────────────────────────────────
+// ─── Thanks for reading ────────────────────────────────────────────────────
+
+function ThanksForReadingSection() {
+  return (
+    <section
+      className="w-full py-12 md:py-20"
+      style={{ backgroundColor: "#f5f5f5" }}
+    >
+      <div className="mx-auto max-w-3xl px-6 text-center">
+        <p
+          className="text-primary font-semibold text-[1.8rem] leading-tight"
+          style={{ textShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+        >
+          Thanks for reading!
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─── Case study prev/next nav (minimal text-only) ───────────────────────────
 
 function CaseStudyNav() {
   const pathname = usePathname();
@@ -492,50 +512,28 @@ function CaseStudyNav() {
   if (index === -1) return null;
   const prev = CASE_STUDIES_NAV[(index - 1 + CASE_STUDIES_NAV.length) % CASE_STUDIES_NAV.length];
   const next = CASE_STUDIES_NAV[(index + 1) % CASE_STUDIES_NAV.length];
+
   return (
-    <section className="border-t border-border bg-white px-6 py-10 md:py-12">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-6">
-        <Link
-          href={prev.href}
-          className="group inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-accent"
-        >
-          <svg
-            className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          <span>
-            {prev.company}
-            <span className="text-secondary"> · </span>
+    <section className="border-t bg-white px-6 py-10 md:py-12" style={{ borderColor: "#e0e0e0" }}>
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Previous — left column */}
+        <Link href={prev.href} className="group block w-fit">
+          <p className="text-sm text-[#888]">
+            <span className="inline-block transition-transform duration-200 group-hover:-translate-x-0.5">←</span> Previous
+          </p>
+          <span className="mt-1 block font-bold text-[#171717] underline-offset-2 transition-[text-decoration-color] duration-200 group-hover:underline">
             {prev.title}
           </span>
         </Link>
-        <Link
-          href={next.href}
-          className="group inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-accent"
-        >
-          <span>
-            {next.company}
-            <span className="text-secondary"> · </span>
+
+        {/* Next — right column, right-aligned */}
+        <Link href={next.href} className="group block text-right md:ml-auto md:w-fit md:text-right">
+          <p className="text-sm text-[#888]">
+            Next <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+          </p>
+          <span className="mt-1 block font-bold text-[#171717] underline-offset-2 transition-[text-decoration-color] duration-200 group-hover:underline">
             {next.title}
           </span>
-          <svg
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
         </Link>
       </div>
     </section>
@@ -1225,6 +1223,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
         </div>
       </section>
 
+      <ThanksForReadingSection />
       <CaseStudyNav />
     </main>
   );
@@ -2014,6 +2013,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
         }
         buttonLabel={data.cta?.buttonLabel ?? "Let's talk"}
       />
+
+      <ThanksForReadingSection />
 
       {/* ========================= CASE STUDY NAV (prev / next) ========================= */}
       <CaseStudyNav />
