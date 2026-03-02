@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { CASE_STUDIES_NAV } from "@/lib/case-studies";
 import CanvasBackgroundDots from "@/components/CanvasBackgroundDots";
+import { ImageLightboxProvider, ClickableImage } from "@/components/ImageLightbox";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -738,10 +739,10 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="relative left-1/2 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-card"
+              className="relative left-1/2 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-card transition-shadow duration-300 hover:shadow-xl"
             >
               {data.heroImage ? (
-                <Image
+                <ClickableImage
                   src={data.heroImage}
                   alt={data.heroImageLabel}
                   width={2048}
@@ -913,7 +914,7 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
             }
           >
             {data.heroImage ? (
-              <Image
+              <ClickableImage
                 src={data.heroImage}
                 alt={data.heroImageLabel}
                 width={2048}
@@ -1077,8 +1078,8 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                   </div>
                 )}
                 {feature.image && (
-                  <div className="relative left-1/2 mt-6 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white">
-                    <Image
+                  <div className="relative left-1/2 mt-6 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                    <ClickableImage
                       src={feature.image}
                       alt={feature.title}
                       width={2048}
@@ -1092,8 +1093,8 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                   <div className="mt-6 space-y-6">
                     {feature.images.map((img) => (
                       <div key={img.src}>
-                        <div className="relative left-1/2 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white">
-                          <Image
+                        <div className="relative left-1/2 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                          <ClickableImage
                             src={img.src}
                             alt={img.alt}
                             width={2048}
@@ -1122,8 +1123,8 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                           {sub.description}
                         </p>
                         {sub.image && (
-                          <div className="relative left-1/2 mt-4 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white">
-                            <Image
+                          <div className="relative left-1/2 mt-4 w-[min(88vw,64rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                            <ClickableImage
                               src={sub.image}
                               alt={sub.title}
                               width={2048}
@@ -1136,8 +1137,8 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
                         {sub.images && sub.images.length > 0 && (
                           <div className="relative left-1/2 mt-4 w-[min(88vw,64rem)] -translate-x-1/2 grid grid-cols-2 gap-4 md:gap-5">
                             {sub.images.map((img) => (
-                              <div key={img.src} className="overflow-hidden rounded-xl bg-white">
-                                <Image
+                              <div key={img.src} className="overflow-hidden rounded-xl bg-white transition-shadow duration-300 hover:shadow-xl">
+                                <ClickableImage
                                   src={img.src}
                                   alt={img.alt}
                                   width={2048}
@@ -1233,10 +1234,15 @@ function FlowCaseStudy({ data }: { data: CaseStudyData }) {
 
 export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
   if (data.layoutVariant === "flow") {
-    return <FlowCaseStudy data={data} />;
+    return (
+      <ImageLightboxProvider>
+        <FlowCaseStudy data={data} />
+      </ImageLightboxProvider>
+    );
   }
 
   return (
+    <ImageLightboxProvider>
     <main>
       {/* ========================= HERO ========================= */}
       <section className="relative overflow-hidden bg-white px-6 pt-28 pb-16 md:pt-36 md:pb-20">
@@ -1346,8 +1352,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
             className="mt-10"
           >
             {data.heroImage ? (
-              <div className="overflow-hidden rounded-xl border border-border bg-card">
-                <Image
+              <div className="overflow-hidden rounded-xl border border-border bg-card transition-shadow duration-300 hover:shadow-xl">
+                <ClickableImage
                   src={data.heroImage}
                   alt={data.heroImageLabel}
                   width={2048}
@@ -1495,8 +1501,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                     </div>
                   )}
                   {feature.image && (
-                    <div className="mt-6 overflow-hidden rounded-xl border border-border bg-white">
-                      <Image
+                    <div className="mt-6 overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                      <ClickableImage
                         src={feature.image}
                         alt={feature.title}
                         width={2048}
@@ -1510,8 +1516,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                     <div className="mt-6 space-y-6">
                       {feature.images.map((img) => (
                         <div key={img.src}>
-                          <div className="overflow-hidden rounded-xl border border-border bg-white">
-                            <Image
+                          <div className="overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                            <ClickableImage
                               src={img.src}
                               alt={img.alt}
                               width={2048}
@@ -1545,8 +1551,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                             {sub.description}
                           </p>
                           {sub.image && (
-                            <div className="mt-4 overflow-hidden rounded-xl border border-border bg-white">
-                              <Image
+                            <div className="mt-4 overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                              <ClickableImage
                                 src={sub.image}
                                 alt={sub.title}
                                 width={2048}
@@ -1559,8 +1565,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
                           {sub.images && sub.images.length > 0 && (
                             <div className="mt-4 grid grid-cols-2 gap-4 md:gap-5">
                               {sub.images.map((img) => (
-                                <div key={img.src} className="overflow-hidden rounded-xl bg-white">
-                                  <Image
+                                <div key={img.src} className="overflow-hidden rounded-xl bg-white transition-shadow duration-300 hover:shadow-xl">
+                                  <ClickableImage
                                     src={img.src}
                                     alt={img.alt}
                                     width={2048}
@@ -1983,8 +1989,8 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
               className="mt-10"
             >
               {dd.image ? (
-                <div className="overflow-hidden rounded-xl border border-border bg-white">
-                  <Image
+                <div className="overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-xl">
+                  <ClickableImage
                     src={dd.image}
                     alt={dd.imageLabel}
                     width={2048}
@@ -2019,5 +2025,6 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
       {/* ========================= CASE STUDY NAV (prev / next) ========================= */}
       <CaseStudyNav />
     </main>
+    </ImageLightboxProvider>
   );
 }

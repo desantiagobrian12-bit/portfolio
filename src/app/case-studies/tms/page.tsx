@@ -23,6 +23,7 @@ const videoV = "?v=2"; // bump when you replace Prototype-video.mp4
 const narrativeSections: CaseStudyFeature[] = [
   {
     title: "What operations actually looked like",
+    image: `${basePath}/Flow Diagram.png${imgV}`,
     description:
       "Before designing anything, I needed to understand how logistics actually ran, not how it was documented. I ran workshops with internal stakeholders and mapped operations from onboarding to final delivery and returns.\n\nI used journey maps and user flows to see how admins, coordinators, and operators interacted with the system and where friction was. Four patterns defined the problem:\n\n\u2022 Fragmented communication between coordinators and operators\n\u2022 Manual route creation prone to errors\n\u2022 No real-time feedback from the field\n\u2022 Limited visibility on delivery status and incidents\n\nThose insights drove early screen flows, user roles, and the logic behind key interactions and validations.",
   },

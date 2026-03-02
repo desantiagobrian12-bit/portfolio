@@ -22,7 +22,7 @@ const TOTAL_DURATION =
 
 export default function CanvasEntrance() {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [shouldRender, setShouldRender] = useState(true);
+  const [shouldRender, setShouldRender] = useState(false);
   const [visibleLines, setVisibleLines] = useState(0);
   const [progress, setProgress] = useState(0);
   const [fading, setFading] = useState(false);
@@ -30,6 +30,12 @@ export default function CanvasEntrance() {
   const rafRef = useRef<number>(0);
 
   const totalLines = CODE_LINES.length;
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("entrance_seen")) {
+      setShouldRender(true);
+    }
+  }, []);
 
   const tick = useCallback(
     (now: number) => {
@@ -61,6 +67,7 @@ export default function CanvasEntrance() {
         setTimeout(() => {
           setFading(true);
           setTimeout(() => {
+            sessionStorage.setItem("entrance_seen", "1");
             document.body.style.overflow = "";
             setShouldRender(false);
           }, FADE_DURATION);
