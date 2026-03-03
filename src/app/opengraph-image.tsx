@@ -18,78 +18,103 @@ export default async function Image() {
           fontFamily: "sans-serif",
         }}
       >
-        {/* Dot grid background */}
+        {/* Dot grid */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage:
-              "radial-gradient(circle, #D1D5DB 1.5px, transparent 1.5px)",
-            backgroundSize: "28px 28px",
-            opacity: 0.6,
+            backgroundImage: "radial-gradient(circle, #D1D5DB 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+            display: "flex",
           }}
         />
 
-        {/* White fade overlay — left side for readability */}
+        {/* Large circle top-right (CanvasBackground: -right-16 -top-16, 480px) */}
         <div
           style={{
             position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(105deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.97) 55%, rgba(255,255,255,0.55) 100%)",
+            top: -16,
+            right: -16,
+            width: 480,
+            height: 480,
+            borderRadius: "50%",
+            border: "1px solid #D1D5DB",
+            display: "flex",
           }}
         />
 
-        {/* Blue accent bar — left edge */}
+        {/* Small square left (CanvasBackground: left-14, bottom-[38%]) */}
+        <div
+          style={{
+            position: "absolute",
+            left: 56,
+            top: 311,
+            width: 78,
+            height: 78,
+            border: "1px solid #D1D5DB",
+            display: "flex",
+          }}
+        />
+
+        {/* Small circle bottom-right (CanvasBackground: bottom-[26%], right-24) */}
+        <div
+          style={{
+            position: "absolute",
+            right: 72,
+            top: 372,
+            width: 92,
+            height: 92,
+            borderRadius: "50%",
+            border: "1px solid #D1D5DB",
+            display: "flex",
+          }}
+        />
+
+        {/* Horizontal line left (CanvasBackground: left-0, top-[55%]) */}
         <div
           style={{
             position: "absolute",
             left: 0,
-            top: 0,
-            width: 6,
-            height: "100%",
-            backgroundColor: "#3B82F6",
+            top: 347,
+            width: 112,
+            height: 1,
+            backgroundColor: "#D1D5DB",
+            display: "flex",
           }}
         />
 
-        {/* Decorative circles — top right */}
+        {/* Diagonal line (CanvasBackground: right-[16%], top-[24%], 176×176)
+            Simulated as a rotated thin bar */}
         <div
           style={{
             position: "absolute",
-            right: -80,
-            top: -80,
-            width: 420,
-            height: 420,
-            borderRadius: "50%",
-            border: "1.5px solid #E5E7EB",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 40,
-            top: 40,
-            width: 260,
-            height: 260,
-            borderRadius: "50%",
-            border: "1.5px solid #3B82F6",
-            opacity: 0.25,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 130,
-            top: 130,
-            width: 80,
-            height: 80,
-            borderRadius: "50%",
-            backgroundColor: "#3B82F6",
-            opacity: 0.12,
+            left: 1008,
+            top: 151,
+            width: 249,
+            height: 1,
+            backgroundColor: "#D1D5DB",
+            transform: "rotate(45deg)",
+            transformOrigin: "0 0",
+            display: "flex",
           }}
         />
 
-        {/* Main content */}
+        {/* Triangle bottom-left (CanvasBackground: bottom-[16%], left-[12%])
+            Approximated as a rotated square outline clipped */}
+        <div
+          style={{
+            position: "absolute",
+            left: 154,
+            top: 487,
+            width: 44,
+            height: 44,
+            border: "1px solid #D1D5DB",
+            transform: "rotate(45deg)",
+            display: "flex",
+          }}
+        />
+
+        {/* ── Text content ── */}
         <div
           style={{
             position: "relative",
@@ -97,110 +122,69 @@ export default async function Image() {
             flexDirection: "column",
             justifyContent: "center",
             paddingLeft: 80,
-            paddingRight: 120,
+            paddingRight: 80,
             paddingTop: 60,
             paddingBottom: 60,
-            flex: 1,
-            gap: 0,
           }}
         >
-          {/* "B" logo mark */}
-          <div
-            style={{
-              width: 52,
-              height: 52,
-              backgroundColor: "#171717",
-              borderRadius: 10,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: 44,
-            }}
-          >
-            <span
-              style={{
-                color: "#ffffff",
-                fontSize: 30,
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: -1,
-              }}
-            >
-              B
-            </span>
-          </div>
-
-          {/* Name */}
-          <div
-            style={{
-              fontSize: 68,
-              fontWeight: 800,
-              color: "#171717",
-              letterSpacing: -2.5,
-              lineHeight: 1.05,
-              marginBottom: 18,
-            }}
-          >
-            Brian De Santiago
-          </div>
-
-          {/* Role pill */}
+          {/* "I'm Brian." */}
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 10,
-              marginBottom: 36,
-            }}
-          >
-            <div
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                backgroundColor: "#3B82F6",
-              }}
-            />
-            <span
-              style={{
-                fontSize: 26,
-                color: "#3B82F6",
-                fontWeight: 600,
-                letterSpacing: -0.5,
-              }}
-            >
-              Product Designer
-            </span>
-          </div>
-
-          {/* Divider */}
-          <div
-            style={{
-              width: 56,
-              height: 2,
-              backgroundColor: "#E5E7EB",
-              marginBottom: 36,
-            }}
-          />
-
-          {/* Description */}
-          <div
-            style={{
-              fontSize: 22,
+              fontSize: 20,
+              fontWeight: 500,
               color: "#6B7280",
-              lineHeight: 1.55,
-              maxWidth: 660,
-              fontWeight: 400,
+              letterSpacing: "0.03em",
+              marginBottom: 28,
             }}
           >
-            I design clarity within complexity — translating intricate business
-            and operational challenges into seamless user experiences.
+            I&apos;m Brian.
+          </div>
+
+          {/* Heading line 1 */}
+          <div
+            style={{
+              display: "flex",
+              fontSize: 88,
+              fontWeight: 900,
+              color: "#171717",
+              letterSpacing: "-3px",
+              lineHeight: 1.05,
+            }}
+          >
+            I design clarity
+          </div>
+
+          {/* Heading line 2 */}
+          <div
+            style={{
+              display: "flex",
+              fontSize: 88,
+              fontWeight: 900,
+              color: "#171717",
+              letterSpacing: "-3px",
+              lineHeight: 1.05,
+              marginBottom: 20,
+            }}
+          >
+            within complexity.
+          </div>
+
+          {/* Subtitle */}
+          <div
+            style={{
+              display: "flex",
+              fontSize: 21,
+              fontWeight: 400,
+              color: "#6B7280",
+              lineHeight: 1.5,
+            }}
+          >
+            Product Designer · Business &amp; operational challenges into seamless user experiences.
           </div>
         </div>
       </div>
     ),
-    {
-      ...size,
-    },
+    { ...size },
   );
 }
