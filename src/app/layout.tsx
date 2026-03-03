@@ -26,6 +26,19 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+  openGraph: {
+    title: "Brian De Santiago — Product Designer",
+    description:
+      "I design clarity within complexity — translating intricate business and operational challenges into seamless user experiences.",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Brian De Santiago — Product Designer",
+    description:
+      "I design clarity within complexity — translating intricate business and operational challenges into seamless user experiences.",
+  },
 };
 
 export default function RootLayout({
